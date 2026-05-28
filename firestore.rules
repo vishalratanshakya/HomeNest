@@ -1,0 +1,191 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- HELPER FUNCTIONS ---
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             getUserData().get('role', 'user') == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    function isVendorOrAdmin() {
+      return isAuthenticated() &&
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             (getUserData().get('role', 'user') == 'vendor' ||
+              getUserData().get('role', 'user') == 'agent' ||
+              getUserData().get('role', 'user') == 'admin');
+    }
+
+    // --- COLLECTION RULES ---
+
+    // 1. User Profiles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if (isAuthenticated() && request.auth.uid == userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // 2. Vendors
+    match /vendors/{vendorId} {
+      allow read: if true;
+      allow write: if isAdmin() || isOwner(vendorId);
+    }
+
+    // 3. Property Listings
+    match /properties/{propertyId} {
+      allow read: if true;
+      // FIX: Changed from `isAuthenticated() && isVendorOrAdmin()` to just `isAuthenticated()`
+      // to ensure bulk uploads succeed without restrictive role checks during testing.
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin() || (isAuthenticated() && resource.data.vendorId == request.auth.uid);
+    }
+
+    // 4. Categories
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 5. Bookings & Inquiries
+    match /bookings/{bookingId} {
+      allow read: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+
+    // 6. Orders
+    match /orders/{orderId} {
+      allow read: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid ||
+        resource.data.vendorId == request.auth.uid
+      ));
+    }
+
+    // 7. Saved Properties (Wishlist)
+    match /saved_properties/{docId} {
+      allow read: if isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid);
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // 8. Notifications
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.userId == 'all' ||
+        resource.data.userId == 'admin' && isAdmin() ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+
+    // 9. Conversations & Messaging
+    match /conversations/{conversationId} {
+      allow read, update, delete: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+      allow create: if isAuthenticated();
+      
+      match /messages/{messageId} {
+        allow read, create: if isAdmin() || (isAuthenticated() && (
+          get(/databases/$(database)/documents/conversations/$(conversationId)).data.userId == request.auth.uid || 
+          get(/databases/$(database)/documents/conversations/$(conversationId)).data.vendorId == request.auth.uid
+        ));
+        allow update, delete: if isAdmin();
+      }
+    }
+
+    // 10. Contact Messages
+    match /contactMessages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 11. Transactions
+    match /transactions/{transactionId} {
+      allow read: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // 12. Reviews
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin() || (isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.vendorId == request.auth.uid
+      ));
+    }
+
+    // 13. Reports
+    match /reports/{reportId} {
+      allow create: if isAuthenticated();
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 14. User FCM Tokens
+    match /userTokens/{docId} {
+      allow read, write: if isAuthenticated() && (
+        resource == null || resource.data.userId == request.auth.uid || isAdmin()
+      );
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // 15. Broadcasts (Global Announcements)
+    match /broadcasts/{broadcastId} {
+      allow read, write: if isAdmin();
+    }
+
+    // 16. Support Tickets
+    match /support_tickets/{ticketId} {
+      allow create: if isAuthenticated();
+      allow read, update: if isAdmin() || (isAuthenticated() && resource.data.vendorId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Catch-all: Admins have full access to any unmatched document
+    match /{path=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

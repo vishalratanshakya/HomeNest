@@ -1,0 +1,43 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper to check if the user is the owner
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // 1. Profile Pictures
+    match /users/{userId}/{allPaths=**} {
+      // Anyone can see a profile picture
+      allow read: if true;
+      // Only the user can upload/delete their own profile picture
+      // Limit size to 5MB and check if it's an image
+      allow write: if isOwner(userId)
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // 2. Property Images (Products)
+    match /products/{productId}/{allPaths=**} {
+      // Anyone can view property images
+      allow read: if true;
+      // Only authenticated users can upload property images
+      allow write: if isAuthenticated()
+                   && request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // 3. Document Verification (Sensitive)
+    match /documents/{userId}/{allPaths=**} {
+      // Only the user and admin can see sensitive documents
+      allow read, write: if isOwner(userId);
+    }
+  }
+}

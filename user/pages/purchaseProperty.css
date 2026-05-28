@@ -1,0 +1,600 @@
+/* ======================================== */
+/* PREMIUM PURCHASE PROPERTY SECTION CSS */
+/* ======================================== */
+
+.purchase-page {
+  background: #f8fafc;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: "Inter", sans-serif;
+}
+
+/* CONTAINER */
+.purchase-container {
+  max-width: 1650px;
+  width: 95%;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.purchase-info-section {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 28px;
+  box-shadow:
+    0 10px 40px rgba(15, 23, 42, 0.06),
+    0 2px 10px rgba(15, 23, 42, 0.04);
+
+  border: 1px solid #eef2f7;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TOP BORDER EFFECT */
+.purchase-info-section::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #3b82f6,
+    #60a5fa
+  );
+}
+
+/* ======================================== */
+/* PAGE TITLE */
+/* ======================================== */
+
+.purchase-page-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+
+  line-height: 1.2;
+  letter-spacing: -1px;
+
+  margin-bottom: 12px;
+}
+
+/* SUBTITLE */
+
+.purchase-page-subtitle {
+  font-size: 15px;
+  color: #64748b;
+
+  line-height: 1.7;
+  max-width: 800px;
+
+  margin-bottom: 32px;
+}
+
+/* ======================================== */
+/* SECTION HEADING */
+/* ======================================== */
+
+.purchase-section-heading {
+  font-size: 21px;
+  font-weight: 600;
+
+  color: #0f172a;
+
+  margin-bottom: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ======================================== */
+/* STEPPER */
+/* ======================================== */
+.purchase-stepper {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.active-step span {
+  background: #2563eb;
+  color: white;
+}
+
+/* ======================================== */
+/* FORM */
+/* ======================================== */
+.purchase-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+/* INPUT */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.input-group input {
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ========================= */
+/* PAYMENT SECTION */
+/* ========================= */
+
+.payment-section {
+  margin-top: 35px;
+}
+
+/* GRID */
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 35px;
+}
+
+/* CARD */
+.payment-card {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  text-align: left;
+}
+
+/* HOVER */
+.payment-card:hover {
+  border-color: #2563eb;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
+}
+
+/* ACTIVE */
+.active-payment {
+  background: #eff6ff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
+}
+
+/* ICON */
+.payment-icon {
+  width: 54px;
+  height: 54px;
+
+  border-radius: 16px;
+
+  background: #eff6ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  flex-shrink: 0;
+}
+
+/* INFO */
+.payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.payment-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.payment-info p {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ======================================== */
+/* SECURE TRANSACTION BOX */
+/* ======================================== */
+
+.secure-payment-box {
+  background: linear-gradient(
+    180deg,
+    #f8fbff,
+    #eff6ff
+  );
+
+  border: 1px solid #dbeafe;
+
+  border-radius: 22px;
+
+  padding: 28px;
+
+  margin-bottom: 30px;
+
+  position: relative;
+}
+
+/* LEFT BLUE LINE */
+
+.secure-payment-box::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 20px;
+
+  width: 5px;
+  height: calc(100% - 40px);
+
+  border-radius: 10px;
+
+  background: #2563eb;
+}
+
+/* SECURE TITLE */
+
+.secure-title {
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #0f172a;
+
+  margin-bottom: 12px;
+
+  padding-left: 14px;
+}
+
+/* SECURE TEXT */
+
+.secure-text {
+  font-size: 14px;
+  line-height: 1.8;
+
+  color: #64748b;
+
+  padding-left: 14px;
+}
+
+/* ======================================== */
+/* AGREEMENT CHECKBOX */
+/* ======================================== */
+
+.payment-agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  background: #f8fafc;
+
+  padding: 20px;
+  border-radius: 18px;
+
+  border: 1px solid #e2e8f0;
+}
+
+/* CHECKBOX */
+
+.agreement-wrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+
+  accent-color: #2563eb;
+
+  margin-top: 3px;
+
+  cursor: pointer;
+}
+
+/* LABEL */
+
+.payment-agreement label {
+  font-size: 14px;
+  line-height: 1.8;
+
+  color: #475569;
+
+  cursor: pointer;
+}
+
+/* IMPORTANT TEXT */
+
+.payment-agreement strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* ======================================== */
+/* PURCHASE BUTTON */
+/* ======================================== */
+.payment-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+
+.purchase-btn:hover {
+  opacity: 0.9;
+}
+
+/* ======================================== */
+/* SUMMARY SECTION */
+/* ======================================== */
+.purchase-summary {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+}
+
+.summary-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+
+.summary-location {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.price-row,
+.price-total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-total {
+  padding-top: 15px;
+  border-top: 1px solid #e2e8f0;
+  font-weight: 700;
+}
+
+.coupon-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.coupon-box button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.emi-box {
+  background: #eff6ff;
+  padding: 22px;
+  border-radius: 18px;
+}
+
+.emi-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.emi-calculator-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.emi-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emi-input label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.emi-input input {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* ======================================== */
+/* RESPONSIVE - TABLET */
+/* ======================================== */
+
+@media (max-width: 1024px) {
+  .purchase-container {
+    grid-template-columns: 1fr;
+  }
+
+  .purchase-info-section {
+    padding: 32px;
+  }
+
+  .purchase-page-title {
+    font-size: 36px;
+  }
+
+}
+
+/* ======================================== */
+/* RESPONSIVE - MOBILE */
+/* ======================================== */
+
+@media (max-width: 768px) {
+  .purchase-page {
+    padding: 20px 14px;
+  }
+
+  .purchase-info-section {
+    padding: 30px;
+    border-radius: 22px;
+  }
+
+  .purchase-page-title {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .purchase-page-subtitle {
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+
+  .purchase-section-heading {
+    font-size: 17px;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .payment-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .payment-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+
+  .payment-info h4 {
+    font-size: 15px;
+  }
+
+  .payment-info p {
+    font-size: 12px;
+  }
+
+  .secure-box {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .secure-title {
+    font-size: 15px;
+  }
+
+  .secure-text,
+  .payment-agreement label {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  .purchase-page > div:first-child {
+    margin-bottom: 20px;
+  }
+}

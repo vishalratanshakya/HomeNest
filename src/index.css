@@ -1,0 +1,1113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-family: 'Inter', sans-serif;
+    @apply antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Smooth UI */
+  * {
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.3px;
+  }
+
+  /* Fix for Navbar flash */
+  header {
+    transition: none !important;
+    background-color: white;
+  }
+}
+
+@layer components {
+  /* 🔥 GLOBAL INPUT STYLE */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-300 
+           text-gray-900 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-indigo-500 
+           focus:border-indigo-500 transition;
+  }
+
+  /* 🔥 LABEL STYLE */
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+
+  /* 🔥 CARD STYLE */
+  .card {
+    @apply bg-white rounded-2xl shadow-md p-6;
+  }
+
+  /* 🔥 PRIMARY BUTTON */
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-2.5 rounded-xl 
+           font-medium hover:bg-blue-700 
+           transition shadow-sm;
+  }
+
+  /* 🔥 SECONDARY BUTTON */
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 px-6 py-3 rounded-xl 
+           font-medium hover:bg-gray-300 transition;
+  }
+
+  /* 🔥 SECTION TITLE */
+  .section-title {
+    @apply text-lg font-semibold text-gray-900 mb-4;
+  }
+
+  /* Wallet + Form Unified Input Style */
+  .wallet-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white 
+    text-gray-700 placeholder-gray-400 
+    shadow-sm outline-none transition-all duration-200;
+  }
+
+  .wallet-input:focus {
+    @apply border-indigo-400 ring-2 ring-indigo-100 bg-white;
+  }
+
+  /* Select dropdown same look */
+  .wallet-select {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white 
+    text-gray-700 shadow-sm outline-none cursor-pointer;
+  }
+
+  .wallet-select:focus {
+    @apply border-indigo-400 ring-2 ring-indigo-100;
+  }
+
+  /* Label */
+  .wallet-label {
+    @apply text-sm font-medium text-gray-700 mb-1 block;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-500;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Loading skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  @apply bg-gray-200;
+  background-image: linear-gradient(
+    to right,
+    #f3f4f6 0%,
+    #e5e7eb 20%,
+    #f3f4f6 40%,
+    #f3f4f6 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* 2. Smooth Hover Lift Effect */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 3. Gradient Animated Button */
+.btn-gradient {
+  background: linear-gradient(45deg, #ff9800, #ff5722);
+  color: white;
+  border-radius: 12px;
+  transition: 0.4s;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(45deg, #ff5722, #ff9800);
+  transform: scale(1.05);
+}
+
+/* 4. Wave Loader Animation */
+.wave {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wave span {
+  width: 4px;
+  height: 20px;
+  background: #ff9800;
+  border-radius: 2px;
+  animation: wave 1s infinite ease-in-out;
+}
+
+.wave span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.wave span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.wave span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    height: 10px;
+  }
+  50% {
+    height: 30px;
+  }
+}
+
+/* 5. Floating Bottom Card Animation */
+.bottom-card {
+  animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 6. Background Video Overlay */
+.video-overlay {
+  position: relative;
+}
+
+.video-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+/* 7. Glow Effect */
+.glow {
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.7), 0 0 20px rgba(255, 152, 0, 0.5);
+}
+
+.glow-blue {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.glow-green {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.7), 0 0 20px rgba(34, 197, 94, 0.5);
+}
+
+/* 8. Ripple Click Effect */
+.ripple-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-button:active::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  top: -50%;
+  left: -50%;
+  border-radius: 50%;
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 9. Smooth Page Transition */
+.fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 10. Scroll Reveal Animation */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* When JS adds 'pre-reveal' to elements below fold, they start hidden */
+.reveal.pre-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shine Effect */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Premium Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Hover Lift Effect */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Glow Effect */
+.glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.glow:hover {
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+}
+
+/* Orange Gradient Button with Ripple */
+.btn-gradient {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff4500 100%);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+  filter: brightness(1.1);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
+
+/* Shine Effect for Premium Elements */
+.premium-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 100%
+  );
+  transform: rotate(-45deg);
+  transition: all 0.6s ease;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.premium-shine:hover::after {
+  left: 100%;
+  top: 100%;
+  opacity: 1;
+}
+
+/* =========================================================
+CONFIRM BOOKING PAGE — PREMIUM REAL ESTATE UI
+Professional Clean CSS
+========================================================= */
+
+.confirm-booking-page {
+  background: #f5f7fa;
+  min-height: 100vh;
+  padding: 32px;
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================================
+TOP HEADER
+========================================================= */
+
+.booking-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.booking-left small {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4f46e5;
+}
+
+.booking-left h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 6px;
+  line-height: 1.1;
+}
+
+.booking-left p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+/* =========================================================
+TOP BUTTONS
+========================================================= */
+
+.booking-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.back-btn {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid #dbe1ea;
+  background: #ffffff;
+  color: #374151;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.back-btn:hover {
+  background: #f3f4f6;
+}
+
+.confirm-btn {
+  height: 34px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    #6366f1,
+    #4f46e5
+  );
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(99, 102, 241, 0.35);
+}
+
+/* =========================================================
+MAIN GRID
+========================================================= */
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* =========================================================
+LEFT FORM CARD
+========================================================= */
+
+.booking-form-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+/* =========================================================
+SECTION HEADER
+========================================================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.section-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f46e5;
+}
+
+.section-header h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.section-header p {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+/* =========================================================
+FORM GRID
+========================================================= */
+
+.booking-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* =========================================================
+INPUT GROUP
+========================================================= */
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+}
+
+/* =========================================================
+INPUTS
+========================================================= */
+
+.input-wrapper {
+  position: relative;
+}
+
+.booking-input,
+.booking-select,
+.booking-textarea {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 18px;
+  transition: 0.25s ease;
+  font-family: inherit;
+}
+
+.booking-input,
+.booking-select {
+  height: 60px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.booking-textarea {
+  padding: 18px;
+  min-height: 140px;
+  resize: none;
+  font-size: 15px;
+  color: #111827;
+}
+
+.booking-input:focus,
+.booking-select:focus,
+.booking-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.booking-input::placeholder,
+.booking-textarea::placeholder {
+  color: #c0c7d2;
+  font-weight: 500;
+}
+
+/* =========================================================
+INPUT ICON
+========================================================= */
+
+.input-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c0c7d2;
+  pointer-events: none;
+}
+
+/* =========================================================
+   SIMPLIFIED FORM STYLES (MATCHING ADD PROPERTY)
+   ========================================================= */
+
+.section-header-simple {
+  margin-bottom: 32px;
+  border-bottom: 1px solid #f0f3f6;
+  padding-bottom: 20px;
+}
+
+.section-header-simple h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.section-header-simple p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.form-group-simple {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group-simple label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group-simple label .required {
+  color: #ef4444;
+  margin-left: 4px;
+}
+
+.booking-input-simple,
+.booking-select-simple,
+.booking-textarea-simple {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #dbe1ea;
+  background: #ffffff;
+  font-size: 15px;
+  color: #111827;
+  transition: all 0.2s ease;
+}
+
+.booking-input-simple:focus,
+.booking-select-simple:focus,
+.booking-textarea-simple:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.booking-input-simple::placeholder,
+.booking-textarea-simple::placeholder {
+  color: #9ca3af;
+}
+
+/* Date Picker Fix */
+input[type="date"] {
+  position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+/* =========================================================
+TEXTAREA FULL WIDTH
+========================================================= */
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* =========================================================
+PROPERTY CARD
+========================================================= */
+
+.booking-property-card {
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  position: sticky;
+  top: 24px;
+}
+
+/* =========================================================
+PROPERTY IMAGE
+========================================================= */
+
+.property-image-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.property-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s ease;
+}
+
+.property-image-wrapper:hover img {
+  transform: scale(1.06);
+}
+
+/* =========================================================
+PROPERTY BADGE
+========================================================= */
+
+.property-badge {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #111827;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* =========================================================
+PROPERTY CONTENT
+========================================================= */
+
+.property-content {
+  padding: 28px;
+}
+
+.property-content h3 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+/* =========================================================
+PRICE BOX
+========================================================= */
+
+.price-summary {
+  margin-top: 28px;
+  border-top: 1px solid #eef2f7;
+  padding-top: 24px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.price-row span {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.price-row strong {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* =========================================================
+TOTAL
+========================================================= */
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px dashed #dbe1ea;
+  margin-top: 12px;
+}
+
+.total-price h4 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #374151;
+}
+
+.total-price h2 {
+  font-size: 40px;
+  font-weight: 800;
+  color: #4f46e5;
+}
+
+/* =========================================================
+PAY BUTTON
+========================================================= */
+
+.pay-btn {
+  width: 100%;
+  height: 48px;
+  margin-top: 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    #6366f1,
+    #4f46e5
+  );
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 14px 30px rgba(99,102,241,0.25);
+}
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(99,102,241,0.35);
+}
+
+/* =========================================================
+SECURE TEXT
+========================================================= */
+
+.secure-payment {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+  .booking-property-card {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .confirm-booking-page {
+    padding: 20px;
+  }
+  .booking-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .booking-left h1 {
+    font-size: 36px;
+  }
+  .booking-actions {
+    width: 100%;
+  }
+  .back-btn,
+  .confirm-btn {
+    flex: 1;
+  }
+  .booking-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .booking-form-card {
+    padding: 24px;
+  }
+  .property-content h3 {
+    font-size: 26px;
+  }
+  .total-price h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-left h1 {
+    font-size: 30px;
+  }
+  .section-header h2 {
+    font-size: 24px;
+  }
+  .booking-input,
+  .booking-select {
+    height: 56px;
+    font-size: 15px;
+  }
+  .pay-btn {
+    height: 56px;
+    font-size: 16px;
+  }
+}
+/* =========================================================
+   EMI CALCULATOR
+   ========================================================= */
+
+.emi-calculator-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.emi-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.emi-result-box {
+  background: #111827;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  min-height: 180px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.emi-result-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.emi-result-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.emi-result-note {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .emi-calculator-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

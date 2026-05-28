@@ -1,0 +1,16 @@
+{
+  "name": "HomeNest Marketplace",
+  "short_name": "HomeNest",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Professional Home Marketplace",
+  "icons": [
+    {
+      "src": "vite.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "gcm_sender_id": "103953800507"
+}
