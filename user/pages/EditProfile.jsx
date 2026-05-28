@@ -225,7 +225,7 @@ export default function EditProfile() {
                             name="fullName"
                             value={formData.fullName}
                             onChange={handleInputChange}
-                            className="input-field pl-12" 
+                            className="input-field !pl-12" 
                             placeholder="John Doe"
                         />
                     </div>
@@ -240,7 +240,7 @@ export default function EditProfile() {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="input-field pl-12 bg-gray-50/50 text-slate-400" 
+                            className="input-field !pl-12 bg-gray-50/50 text-slate-400" 
                             disabled
                         />
                     </div>
@@ -255,7 +255,7 @@ export default function EditProfile() {
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            className="input-field pl-12" 
+                            className="input-field !pl-12" 
                             placeholder="+91 98765 43210"
                         />
                     </div>
@@ -270,7 +270,7 @@ export default function EditProfile() {
                             name="location"
                             value={formData.location}
                             onChange={handleInputChange}
-                            className="input-field pl-12" 
+                            className="input-field !pl-12" 
                             placeholder="Mumbai, India"
                         />
                     </div>
@@ -285,7 +285,7 @@ export default function EditProfile() {
                             name="accountType"
                             value={formData.accountType}
                             onChange={handleInputChange}
-                            className="input-field pl-12" 
+                            className="input-field !pl-12" 
                             placeholder="Standard User"
                         />
                     </div>
@@ -300,7 +300,7 @@ export default function EditProfile() {
                             name="memberSince"
                             value={formData.memberSince}
                             onChange={handleInputChange}
-                            className="input-field pl-12 bg-gray-50/50 text-slate-400" 
+                            className="input-field !pl-12 bg-gray-50/50 text-slate-400" 
                             disabled
                         />
                     </div>

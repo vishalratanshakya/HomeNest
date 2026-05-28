@@ -53,7 +53,7 @@ export default function Properties() {
         {},
         (data) => {
           const filtered = data.filter(
-            (p) => p.vendorId === user.uid || p.vendorRole === 'admin' || p.vendorId === 'admin'
+            (p) => p.vendorId === user.uid
           );
           setProperties(filtered);
           setLoading(false);

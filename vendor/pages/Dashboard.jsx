@@ -41,7 +41,7 @@ export default function VendorDashboard() {
         {},
         (data) => {
           const filtered = data.filter(
-            (p) => p.vendorId === currentUser.uid || p.vendorRole === 'admin' || p.vendorId === 'admin'
+            (p) => p.vendorId === currentUser.uid
           );
           setProperties(filtered);
         }

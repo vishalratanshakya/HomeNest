@@ -207,7 +207,7 @@ export default function UserHome() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-8 left-8 text-white max-w-md">
                   <h2 className="text-3xl font-bold mb-2 drop-shadow-lg uppercase tracking-tight">{slide.title}</h2>
-                  <p className="text-gray-100 font-medium drop-shadow-md">{slide.subtitle}</p>
+                  <p className="text-gray-100 font-medium drop-shadow-md hidden md:block">{slide.subtitle}</p>
                 </div>
               </div>
             ))}

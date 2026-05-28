@@ -256,7 +256,7 @@ export default function AddProperty() {
         vendorName: user?.displayName || formData.contactName,
         vendorPhone: formData.contactPhone,
         status: 'active',
-        category: formData.listingType, // sale/rent
+        category: formData.type, // Map formData.type to category
         rating: 5.0,
         views: 0,
         leads: 0,

@@ -374,7 +374,7 @@ export default function ProfilePage() {
 
           {/* Main Content */}
           <div className="lg:col-span-3 space-y-8">
-            <div className="bg-white rounded-3xl p-2 border border-gray-100 shadow-sm flex overflow-x-auto no-scrollbar">
+            <div className="bg-white rounded-3xl p-2 border border-gray-100 shadow-sm grid grid-cols-2 md:flex md:overflow-x-auto gap-2 no-scrollbar">
               {[
                 { id: 'personal', label: 'Personal', icon: User },
                 { id: 'purchases', label: 'Purchased Properties', icon: ShoppingBag },
@@ -393,7 +393,7 @@ export default function ProfilePage() {
                       setActiveTab(tab.id);
                     }
                   }}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                  className={`flex items-center justify-center md:justify-start space-x-2 px-2 md:px-6 py-3 rounded-2xl font-bold transition-all text-[11px] sm:text-xs md:text-sm whitespace-nowrap ${
                     activeTab === tab.id ? 'bg-primary-600 text-white shadow-lg shadow-primary-100' : 'text-gray-500 hover:bg-gray-50'
                   }`}
                 >

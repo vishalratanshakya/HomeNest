@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { db } from '@core/services/firebaseService';
+import { db, authService } from '@core/services/firebaseService';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import toast from 'react-hot-toast';
 import UserNavbar from '../components/UserNavbar';
 import "./contact.css";
 
@@ -50,12 +51,19 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const user = authService.getCurrentUser() || JSON.parse(sessionStorage.getItem('currentUser'));
+    if (!user) {
+      toast.error('Please login to send a message');
+      return;
+    }
+
     setLoading(true);
     setStatus({ type: '', message: '' });
 
     try {
       await addDoc(collection(db, "contactMessages"), {
         ...formData,
+        userId: user.uid,
         createdAt: serverTimestamp()
       });
 

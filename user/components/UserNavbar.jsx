@@ -148,17 +148,13 @@ export default function UserNavbar() {
   };
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg shadow-slate-100/50 h-14' : 'bg-white h-16'} border-b border-slate-100`}>
+    <>
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg shadow-slate-100/50 h-14' : 'bg-white h-16'} border-b border-slate-100 ${location.pathname.startsWith('/user/product/') ? 'hidden md:block' : ''}`}>
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 h-full">
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
           <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => setShowMobileMenu(true)}
-              className="md:hidden p-2.5 text-slate-500 hover:bg-slate-50 rounded-2xl transition-all"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+
             <Link to="/user/home" className="flex items-center gap-3 group">
               <img 
                 src="/homenest-logo.jpg" 
@@ -312,7 +308,7 @@ export default function UserNavbar() {
             </div>
 
             {/* Auth Logic */}
-            <div className="hidden md:flex items-center">
+            <div className="flex items-center">
               {authLoading ? (
                 <div className="w-10 h-10 rounded-full bg-slate-100 animate-pulse" />
               ) : currentUser ? (
@@ -384,7 +380,13 @@ export default function UserNavbar() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center space-x-4 pl-4 border-l border-slate-100">
+                <div className="flex items-center space-x-2 md:space-x-4 pl-2 md:pl-4 border-l border-slate-100">
+                  <Link 
+                    to="/vendor/login" 
+                    className="md:hidden px-3 py-2 bg-slate-900 text-white text-[10px] font-black rounded-xl"
+                  >
+                    Vendor
+                  </Link>
                   <Link 
                     to="/auth/login" 
                     className="hidden sm:block px-8 py-3.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white text-xs font-black rounded-2xl shadow-xl shadow-primary-200 hover:shadow-primary-300 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase tracking-widest"
@@ -397,157 +399,6 @@ export default function UserNavbar() {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {showMobileMenu && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] md:hidden"
-          >
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }}
-              onClick={() => setShowMobileMenu(false)}
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm" 
-            />
-            <motion.div 
-              initial={{ x: '-100%' }} 
-              animate={{ x: 0 }} 
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="absolute left-0 top-0 bottom-0 w-80 bg-white shadow-2xl flex flex-col min-h-0"
-            >
-              {/* Header */}
-              <div className="p-6 border-b border-gray-100 flex justify-between items-center flex-shrink-0">
-                <Link to="/user/home" className="flex items-center gap-3" onClick={() => setShowMobileMenu(false)}>
-                  <img 
-                    src="/homenest-logo.jpg" 
-                    alt="HomeNest Logo" 
-                    className="h-8 sm:h-10 w-auto object-contain rounded-md"
-                  />
-                </Link>
-                <button onClick={() => setShowMobileMenu(false)} className="p-2 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all">
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-
-              {/* Scrollable Content */}
-              <div
-                className="flex-1 min-h-0 overflow-y-auto p-5 flex flex-col gap-5 pb-8"
-                style={{ WebkitOverflowScrolling: 'touch' }}
-              >
-
-                {/* User Card */}
-                {currentUser ? (
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl mb-3">
-                      <div className="w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
-                        {(userDoc?.displayName || userDoc?.name || currentUser.displayName || currentUser.email)?.[0]?.toUpperCase()}
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-bold text-gray-900 truncate">{userDoc?.displayName || userDoc?.name || userDoc?.fullName || currentUser.displayName || currentUser.email?.split('@')[0]}</p>
-                        <p className="text-xs text-gray-500 font-medium truncate">
-                          {currentUser.email || userDoc?.email || 'No email on file'}
-                        </p>
-                      </div>
-                    </div>
-                    {/* Prominent Profile Button */}
-                    <Link 
-                      to="/user/profile"
-                      onClick={() => setShowMobileMenu(false)}
-                      className="w-full flex items-center justify-center gap-2 py-3 bg-primary-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-700 transition-all shadow-md shadow-primary-200"
-                    >
-                      <User className="w-4 h-4" />
-                      <span>View Profile</span>
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-3 flex-shrink-0">
-                    <Link to="/auth/login" onClick={() => setShowMobileMenu(false)} className="py-3.5 bg-gray-50 text-gray-900 text-center rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-gray-100 transition-all">Login</Link>
-                    <Link to="/auth/signup" onClick={() => setShowMobileMenu(false)} className="py-3.5 bg-primary-600 text-white text-center rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-700 transition-all">Join</Link>
-                  </div>
-                )}
-
-                {/* Main Navigation */}
-                <div>
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1 mb-2">Navigation</p>
-                  <div className="space-y-0.5">
-                    {[
-                      { icon: Home,   label: 'Home',    path: '/user/home' },
-                      { icon: Search, label: 'Sale',    path: '/user/sale' },
-                      { icon: Search, label: 'Rent',    path: '/user/rent' },
-                      { icon: MessageSquare, label: 'Contact', path: '/user/contact' },
-                      { icon: ShieldCheck, label: 'Vendor', path: '/vendor/login' },
-                    ].map((item) => {
-                      const isActive = location.pathname === item.path;
-                      return (
-                        <Link 
-                          key={item.label}
-                          to={item.path}
-                          onClick={() => setShowMobileMenu(false)}
-                          className={`flex items-center space-x-4 p-4 rounded-2xl transition-all font-bold ${
-                            item.label === 'Vendor'
-                              ? 'bg-slate-900 text-white mt-2 shadow-lg shadow-slate-100'
-                              : isActive 
-                                ? 'bg-primary-50 text-primary-600' 
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-primary-600'
-                          }`}
-                        >
-                          <item.icon className="w-5 h-5 flex-shrink-0" />
-                          <span>{item.label}</span>
-                          {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-500" />}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* My Account */}
-                {currentUser && (
-                  <div>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1 mb-2">My Account</p>
-                    <div className="space-y-0.5">
-                      {[
-                        { icon: Heart,    label: 'Wishlist',     path: '/user/profile', tab: 'saved' },
-                        { icon: Calendar, label: 'Bookings',     path: '/user/profile', tab: 'bookings' },
-                        { icon: History,  label: 'Transactions', path: '/user/profile', tab: 'transactions' },
-                      ].map((item) => (
-                        <Link 
-                          key={item.label}
-                          to={item.path}
-                          state={item.tab ? { activeTab: item.tab } : undefined}
-                          onClick={() => setShowMobileMenu(false)}
-                          className="flex items-center space-x-4 p-4 rounded-2xl hover:bg-gray-50 text-gray-600 hover:text-primary-600 transition-all font-bold"
-                        >
-                          <item.icon className="w-5 h-5 flex-shrink-0" />
-                          <span>{item.label}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Logout - pinned to bottom */}
-                {currentUser && (
-                  <div className="mt-auto pt-4 border-t border-gray-100">
-                    <button 
-                      onClick={handleLogout}
-                      className="w-full flex items-center justify-center space-x-3 p-4 bg-red-50 text-red-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-red-100 transition-all"
-                    >
-                      <LogOut className="w-5 h-5" />
-                      <span>Logout</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Mobile Search Overlay */}
       <AnimatePresence>
@@ -660,5 +511,23 @@ export default function UserNavbar() {
         )}
       </AnimatePresence>
     </header>
+    {/* Bottom Mobile Tab Bar */}
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-[100] flex justify-around items-center p-2 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
+      {[
+        { icon: Home, label: 'Home', path: '/user/home' },
+        { icon: Search, label: 'Sell', path: '/user/sale' },
+        { icon: Search, label: 'Rent', path: '/user/rent' },
+        { icon: MessageSquare, label: 'Contact', path: '/user/contact' }
+      ].map((item) => {
+        const isActive = location.pathname === item.path || (item.path !== '/user/home' && location.pathname.startsWith(item.path));
+        return (
+          <Link key={item.label} to={item.path} className={`flex flex-col items-center p-2 rounded-xl transition-all ${isActive ? 'text-primary-600' : 'text-slate-400'}`}>
+            <item.icon className="w-5 h-5 mb-1" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">{item.label}</span>
+          </Link>
+        )
+      })}
+    </nav>
+    </>
   );
 }

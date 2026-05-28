@@ -21,10 +21,23 @@ export default function VendorAuth() {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      const user = authService.getCurrentUser() || JSON.parse(sessionStorage.getItem('currentUser'));
+      if (user) {
+        const userDoc = await firestoreService.getUserDocument(user.uid);
+        const role = userDoc?.role || user?.role;
+        if (role === 'vendor' || role === 'agent') {
+          navigate('/vendor/dashboard');
+        }
+      }
+    };
+    checkAuth();
+
     setAnimate(true);
     const timer = setTimeout(() => setAnimate(false), 600);
     return () => clearTimeout(timer);
-  }, [isLogin]);
+  }, [isLogin, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
