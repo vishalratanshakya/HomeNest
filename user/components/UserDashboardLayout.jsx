@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import UserSidebar from './UserSidebar';
-import { Menu, Home, Search, X, MapPin, Building2, Star } from 'lucide-react';
+import { Menu, Home, Search, X, MapPin, Building2, Star, Bell as BellIcon, Tag, Key, MessageSquare } from 'lucide-react';
 import { firestoreService } from '../../src/core/services/firebaseService';
 import { useCategories } from '../../src/core/contexts/CategoryContext';
 import { cloudinaryService } from '../../src/core/services/cloudinaryService';
-import { Link } from 'react-router-dom';
+import { useNotifications } from '../../src/core/hooks/useNotifications';
+import { formatDistanceToNow } from 'date-fns';
 
 const UserDashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,6 +17,22 @@ const UserDashboardLayout = () => {
   const [isSearching, setIsSearching] = useState(false);
   const { categories } = useCategories();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const sessionUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+  const [showNotifications, setShowNotifications] = useState(false);
+  const notificationRef = useRef(null);
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(sessionUser?.uid, 'user');
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Search logic
   useEffect(() => {
@@ -59,21 +76,93 @@ const UserDashboardLayout = () => {
           className="flex items-center gap-3 cursor-pointer"
           onClick={() => navigate('/user/home')}
         >
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Home className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-bold text-slate-900">HomeNest</span>
+          <img 
+            src="/homenest-logo.jpg" 
+            alt="HomeNest Logo" 
+            className="h-8 w-auto object-contain rounded-md"
+          />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <button 
             onClick={() => setIsSearchOpen(true)}
             className="p-2 bg-slate-50 rounded-xl text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-all"
           >
             <Search className="w-5 h-5" />
           </button>
+          
+          <div className="relative">
+            <button 
+              onClick={() => setShowNotifications(!showNotifications)} 
+              className={`p-2 rounded-xl transition-all relative ${
+                showNotifications ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-slate-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              <BellIcon className="w-5 h-5" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
+              )}
+            </button>
+
+            <AnimatePresence>
+              {showNotifications && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  ref={notificationRef} 
+                  className="absolute right-0 mt-3 w-[320px] bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden z-[100]"
+                >
+                  <div className="px-6 py-4 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+                    <h3 className="font-bold text-slate-800 text-xs uppercase tracking-[0.2em]">Notifications</h3>
+                    <div className="flex items-center gap-2">
+                      {unreadCount > 0 && (
+                        <button 
+                          onClick={markAllAsRead}
+                          className="text-[10px] font-black text-blue-600 hover:text-blue-700 uppercase tracking-widest transition-colors"
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="max-h-[350px] overflow-y-auto">
+                    {notifications.length > 0 ? (
+                      notifications.map(n => (
+                        <div 
+                          key={n.id} 
+                          onClick={() => markAsRead(n.id)} 
+                          className={`px-6 py-4 border-b border-slate-50 cursor-pointer hover:bg-slate-50/50 transition-all flex gap-3 ${!n.read ? 'bg-blue-50/30' : ''}`}
+                        >
+                          <div className="flex-1">
+                            <p className={`text-xs leading-snug ${!n.read ? 'font-bold text-slate-900' : 'font-semibold text-slate-600'}`}>
+                              {n.message}
+                            </p>
+                            <p className="text-[9px] font-black text-blue-500 mt-2 uppercase tracking-widest">
+                              {n.createdAt?.toDate ? formatDistanceToNow(n.createdAt.toDate(), { addSuffix: true }) : 'Just now'}
+                            </p>
+                          </div>
+                          {!n.read && (
+                            <div className="w-2 h-2 bg-blue-600 rounded-full mt-1 shrink-0" />
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="py-12 px-6 text-center">
+                        <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                          <BellIcon className="w-5 h-5 text-slate-300" />
+                        </div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">All Caught Up</p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <button 
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 bg-slate-50 rounded-xl text-slate-600"
+            className="p-2 bg-slate-50 rounded-xl text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-all"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -237,6 +326,24 @@ const UserDashboardLayout = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Bottom Mobile Tab Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-[9999] flex justify-around items-center p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
+        {[
+          { icon: Home, label: 'Home', path: '/user/home' },
+          { icon: Tag, label: 'Sell', path: '/user/sale' },
+          { icon: Key, label: 'Rent', path: '/user/rent' },
+          { icon: MessageSquare, label: 'Contact', path: '/user/contact' }
+        ].map((item) => {
+          const isActive = location.pathname === item.path || (item.path !== '/user/home' && location.pathname.startsWith(item.path));
+          return (
+            <Link key={item.label} to={item.path} className={`flex flex-col items-center p-2 rounded-xl transition-all ${isActive ? 'text-blue-600' : 'text-slate-400'}`}>
+              <item.icon className="w-5 h-5 mb-1" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">{item.label}</span>
+            </Link>
+          )
+        })}
+      </nav>
     </div>
   );
 };

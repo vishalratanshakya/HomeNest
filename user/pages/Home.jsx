@@ -182,14 +182,14 @@ export default function UserHome() {
   }, [properties]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <UserNavbar />
 
-      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 pt-0 pb-6 fade-in overflow-x-hidden">
+      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 pt-0 pb-6 fade-in">
         {/* Hero Section - Full-width responsive layout */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 mb-8 w-full -mx-4 sm:mx-0 w-[calc(100%+2rem)] sm:w-full">
           {/* Hero Slider - takes 60% on large screens, full width on mobile */}
-          <div className="w-full lg:w-[60%] relative rounded-3xl overflow-hidden h-64 sm:h-80 md:h-[380px] lg:h-[500px] shadow-xl reveal flex-shrink-0">
+          <div className="w-full lg:w-[60%] relative rounded-none sm:rounded-3xl overflow-hidden h-64 sm:h-80 md:h-[380px] lg:h-[500px] sm:shadow-xl reveal flex-shrink-0">
             {heroSlides.map((slide, index) => (
               <div
                 key={index}
@@ -214,24 +214,24 @@ export default function UserHome() {
             
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-800 rounded-2xl transition-all shadow-lg group"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-800 rounded-xl sm:rounded-2xl transition-all shadow-lg group"
             >
-              <ChevronLeft className="w-6 h-6 transition-transform group-hover:-translate-x-1" />
+              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-1" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-800 rounded-2xl transition-all shadow-lg group"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-800 rounded-xl sm:rounded-2xl transition-all shadow-lg group"
             >
-              <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" />
             </button>
             
-            <div className="absolute bottom-6 right-8 flex space-x-2">
+            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 flex space-x-1.5 sm:space-x-2">
               {heroSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'w-8 bg-white' : 'w-2 bg-white/40'
+                    index === currentSlide ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/40'
                   }`}
                 />
               ))}

@@ -14,7 +14,9 @@ import {
   ShieldCheck,
   ChevronRight,
   History,
-  Home
+  Home,
+  Tag,
+  Key
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authService, bookingService, firestoreService } from '@core/services/firebaseService';
@@ -149,7 +151,7 @@ export default function UserNavbar() {
 
   return (
     <>
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg shadow-slate-100/50 h-14' : 'bg-white h-16'} border-b border-slate-100 ${location.pathname.startsWith('/user/product/') ? 'hidden md:block' : ''}`}>
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-lg shadow-slate-100/50' : 'bg-white'} h-16 border-b border-slate-100 ${location.pathname.startsWith('/user/product/') ? 'hidden md:block' : ''}`}>
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 h-full">
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
@@ -198,14 +200,14 @@ export default function UserNavbar() {
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-1 md:space-x-6">
             {/* Mobile/Tablet Search Button */}
             <div className="xl:hidden">
               <button 
                 onClick={() => setShowMobileSearch(true)}
-                className="p-2.5 rounded-2xl text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-all"
+                className="p-1.5 md:p-2.5 rounded-2xl text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-all"
               >
-                <Search className="w-6 h-6" />
+                <Search className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </div>
 
@@ -224,13 +226,13 @@ export default function UserNavbar() {
             <div className="relative">
               <button 
                 onClick={() => setShowNotifications(!showNotifications)} 
-                className={`p-2.5 rounded-2xl transition-all relative ${
+                className={`p-1.5 md:p-2.5 rounded-2xl transition-all relative ${
                   showNotifications ? 'bg-primary-50 text-primary-600' : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                <BellIcon className="w-6 h-6" />
+                <BellIcon className="w-5 h-5 md:w-6 md:h-6" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-2.5 right-2.5 w-3 h-3 bg-red-500 rounded-full border-2 border-white shadow-sm" />
+                  <span className="absolute top-1.5 right-1.5 md:top-2.5 md:right-2.5 w-2.5 h-2.5 md:w-3 md:h-3 bg-red-500 rounded-full border-2 border-white shadow-sm" />
                 )}
               </button>
 
@@ -308,30 +310,37 @@ export default function UserNavbar() {
             </div>
 
             {/* Auth Logic */}
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2 md:space-x-4 pl-2 md:pl-4 border-l border-slate-100">
+              <Link 
+                to="/vendor/login" 
+                className="md:hidden px-2.5 py-1.5 bg-slate-900 text-white text-[9px] font-black rounded-lg"
+              >
+                Vendor
+              </Link>
+              
               {authLoading ? (
-                <div className="w-10 h-10 rounded-full bg-slate-100 animate-pulse" />
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-100 animate-pulse" />
               ) : currentUser ? (
                 <div className="relative group">
                   <button 
                     onClick={() => navigate('/user/profile')}
-                    className="flex items-center p-1.5 rounded-2xl border border-slate-100 hover:border-primary-100 hover:bg-primary-50/50 transition-all duration-300 shadow-sm"
+                    className="flex items-center p-1 md:p-1.5 rounded-2xl border border-slate-100 hover:border-primary-100 hover:bg-primary-50/50 transition-all duration-300 shadow-sm"
                   >
                     {(userDoc?.photoURL || currentUser.photoURL) ? (
                       <img 
                         src={userDoc?.photoURL || currentUser.photoURL} 
                         alt="Profile" 
-                        className="w-10 h-10 rounded-xl object-cover border-2 border-white shadow-sm ring-1 ring-slate-100"
+                        className="w-8 h-8 md:w-10 md:h-10 rounded-xl object-cover border-2 border-white shadow-sm ring-1 ring-slate-100"
                       />
                     ) : (
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-sm font-bold shadow-md">
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-xs md:text-sm font-bold shadow-md">
                         {(userDoc?.displayName || userDoc?.name || currentUser.displayName || currentUser.email)?.[0]?.toUpperCase()}
                       </div>
                     )}
                   </button>
                   
-                  {/* Dropdown */}
-                  <div className="absolute right-0 top-full pt-3 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 min-w-[280px]">
+                  {/* Dropdown (Desktop Only) */}
+                  <div className="hidden md:block absolute right-0 top-full pt-3 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 min-w-[280px]">
                     <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden p-3">
                       <div className="space-y-1">
                         <Link 
@@ -380,18 +389,13 @@ export default function UserNavbar() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center space-x-2 md:space-x-4 pl-2 md:pl-4 border-l border-slate-100">
-                  <Link 
-                    to="/vendor/login" 
-                    className="md:hidden px-3 py-2 bg-slate-900 text-white text-[10px] font-black rounded-xl"
-                  >
-                    Vendor
-                  </Link>
+                <div className="flex items-center">
                   <Link 
                     to="/auth/login" 
-                    className="hidden sm:block px-8 py-3.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white text-xs font-black rounded-2xl shadow-xl shadow-primary-200 hover:shadow-primary-300 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase tracking-widest"
+                    className="flex items-center justify-center w-7 h-7 sm:w-auto sm:h-auto sm:px-8 sm:py-3.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-lg sm:rounded-2xl shadow-md sm:shadow-xl shadow-primary-200 hover:shadow-primary-300 transition-all"
                   >
-                    Login
+                    <User className="w-4 h-4 sm:hidden" />
+                    <span className="hidden sm:block text-xs font-black uppercase tracking-widest">Login</span>
                   </Link>
                 </div>
               )}
@@ -512,11 +516,11 @@ export default function UserNavbar() {
       </AnimatePresence>
     </header>
     {/* Bottom Mobile Tab Bar */}
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-[100] flex justify-around items-center p-2 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 z-[9999] flex justify-around items-center p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
       {[
         { icon: Home, label: 'Home', path: '/user/home' },
-        { icon: Search, label: 'Sell', path: '/user/sale' },
-        { icon: Search, label: 'Rent', path: '/user/rent' },
+        { icon: Tag, label: 'Sell', path: '/user/sale' },
+        { icon: Key, label: 'Rent', path: '/user/rent' },
         { icon: MessageSquare, label: 'Contact', path: '/user/contact' }
       ].map((item) => {
         const isActive = location.pathname === item.path || (item.path !== '/user/home' && location.pathname.startsWith(item.path));

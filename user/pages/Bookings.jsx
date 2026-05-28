@@ -56,14 +56,15 @@ const Bookings = () => {
   return (
     <>
       {/* HEADER */}
-      <div className="dashboard-card">
-        <div className="card-header">
+      <div className="dashboard-card mb-6">
+        <div className="flex flex-col gap-5">
           <div>
-            <h2>My Property Bookings</h2>
-            <p className="profile-subtitle">Track your scheduled property visits and booking status.</p>
+            <h2 className="text-2xl font-black text-slate-900 mb-2">My Property Bookings</h2>
+            <p className="text-sm text-slate-500 font-medium">Track your scheduled property visits and booking status.</p>
           </div>
-          <div className="px-6 py-2 bg-blue-50 text-blue-600 rounded-xl font-black text-xs uppercase tracking-widest">
-            Total Bookings: {bookings.length}
+          <div className="flex justify-between items-center px-5 py-4 bg-blue-50 text-blue-600 rounded-2xl w-full">
+            <span className="font-black text-xs sm:text-sm uppercase tracking-widest">Total Bookings</span>
+            <span className="font-black text-xl sm:text-2xl">{bookings.length}</span>
           </div>
         </div>
       </div>

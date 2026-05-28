@@ -235,7 +235,7 @@ export default function UserSearch() {
           {/* Products Grid */}
           <div className="flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-4">
-              <div className="flex items-center space-x-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
                   className="lg:hidden flex items-center space-x-3 px-6 py-3.5 bg-white border border-gray-200 rounded-full shadow-sm hover:shadow-md transition-all group"
@@ -471,13 +471,13 @@ export default function UserSearch() {
                         <span>{product.bathrooms || product.specifications?.bathrooms || "0"} bath</span>
                         <span>{product.area || product.specifications?.area || "0"} sqft</span>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
                         <span className="text-xl font-black text-blue-600">
                           ₹{Number(product.price).toLocaleString()}
                         </span>
                         <Link
                           to={getPropertyLink(product)}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-xs font-black uppercase tracking-widest"
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-xs font-black uppercase tracking-widest shrink-0"
                         >
                           View Details
                         </Link>

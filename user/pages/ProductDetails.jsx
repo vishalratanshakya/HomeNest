@@ -341,7 +341,7 @@ export default function UserProductDetails() {
             className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
-            Back to Search
+            Back to Home
           </button>
         </div>
 
@@ -350,13 +350,21 @@ export default function UserProductDetails() {
           {/* LEFT COLUMN: IMAGES & FACILITIES */}
           <div className="w-full lg:w-[62%] flex flex-col gap-8">
             {/* Main Image */}
-            <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100 group">
-              <img 
-                src={cloudinaryService.optimizeUrl(product.images[selectedImage], { width: 1200, quality: '90' })} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                alt="Main"
-                fetchpriority="high"
-              />
+            <div className="relative aspect-[16/10] -mx-4 sm:mx-0 rounded-none sm:rounded-[2.5rem] overflow-hidden sm:shadow-2xl bg-slate-100 group">
+              {product.images.map((img, idx) => (
+                <img 
+                  key={idx}
+                  src={cloudinaryService.optimizeUrl(img, { width: 1200, quality: '90' })} 
+                  className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out ${
+                    selectedImage === idx 
+                      ? 'opacity-100 z-10 group-hover:scale-105' 
+                      : 'opacity-0 z-0'
+                  }`}
+                  alt={`Property view ${idx + 1}`}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  fetchpriority={idx === 0 ? "high" : "auto"}
+                />
+              ))}
               {/* Navigation Buttons */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <button 
@@ -508,7 +516,7 @@ export default function UserProductDetails() {
 
               {/* Main Description */}
               <div className="space-y-4">
-                <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest">About this property</h3>
+                <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest">Description</h3>
                 <p className="text-sm leading-[1.8] text-slate-500 font-medium">
                   {product.description}
                 </p>
@@ -623,7 +631,7 @@ export default function UserProductDetails() {
         </div>
 
         {/* Similar Properties Section */}
-        <div className="mt-20 pt-12 border-t border-slate-50">
+        <div className="mt-8 pt-8 md:mt-16 md:pt-12 border-t border-slate-50">
           <div className="flex items-center justify-between mb-10">
             <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Similar Properties</h3>
             <Link to="/user/search" className="text-xs font-black text-blue-600 hover:text-blue-700 uppercase tracking-widest border-b-2 border-blue-100 pb-1">See All</Link>

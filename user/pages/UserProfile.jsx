@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./userDashboard.css";
 import { authService, bookingService, firestoreService } from "@core/services/firebaseService";
-import { Heart, Calendar, MapPin, MessageSquare, Building2 } from 'lucide-react';
+import { Heart, Calendar, MapPin, MessageSquare, Building2, LogOut } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -198,9 +199,6 @@ const UserProfile = () => {
         <div className="card-header">
           <div>
             <h2>Personal Information</h2>
-            <p className="profile-subtitle">
-              Manage your account details and contact information
-            </p>
           </div>
           <button
             className="edit-profile-btn"
@@ -295,6 +293,25 @@ const UserProfile = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* MOBILE LOGOUT */}
+      <div className="md:hidden mt-8 mb-4">
+        <button 
+          onClick={async () => {
+            try {
+              await authService.logout();
+              toast.success('Logged out successfully');
+              navigate('/user/home');
+            } catch (e) {
+              toast.error('Logout failed');
+            }
+          }}
+          className="w-full py-4 flex items-center justify-center gap-3 bg-rose-50 text-rose-600 rounded-2xl font-black uppercase tracking-widest shadow-sm active:scale-95 transition-all"
+        >
+          <LogOut className="w-5 h-5" />
+          Logout
+        </button>
       </div>
     </>
   );

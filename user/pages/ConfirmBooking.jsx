@@ -177,27 +177,29 @@ export default function ConfirmBooking() {
     <div className="confirm-booking-page">
       <UserNavbar />
       
-      <div className="booking-topbar">
-        <div className="booking-left">
-          <small>Secure Checkout</small>
-          <h1>Confirm Your Stay</h1>
-          <p>Review details and complete your property reservation</p>
-          
-          <div className="booking-actions mt-4">
-            <button 
-              onClick={() => navigate(-1)}
-              className="back-btn"
-            >
-              Back
-            </button>
-            <button 
-              onClick={handleBooking}
-              disabled={bookingLoading}
-              className="confirm-btn"
-            >
-              {bookingLoading ? 'Processing...' : 'Confirm Booking'}
-            </button>
-          </div>
+      <div className="p-4 md:p-8 bg-white border-b border-gray-100 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        {/* Actions (Top on mobile, Right on desktop) */}
+        <div className="flex items-center justify-between gap-4 w-full md:w-auto md:order-2">
+          <button 
+            onClick={() => navigate(-1)}
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-xs sm:text-sm uppercase tracking-widest"
+          >
+            Back
+          </button>
+          <button 
+            onClick={handleBooking}
+            disabled={bookingLoading}
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-indigo-600 text-white font-black rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all text-xs sm:text-sm uppercase tracking-widest"
+          >
+            {bookingLoading ? 'Processing...' : 'Confirm Booking'}
+          </button>
+        </div>
+
+        {/* Text (Bottom on mobile, Left on desktop) */}
+        <div className="md:order-1">
+          <small className="text-[10px] md:text-xs font-black text-indigo-600 uppercase tracking-widest">Secure Checkout</small>
+          <h1 className="text-2xl md:text-3xl font-black text-gray-900 mt-1 tracking-tight">Confirm Your Stay</h1>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1 font-medium">Review details and complete your property reservation</p>
         </div>
       </div>
 

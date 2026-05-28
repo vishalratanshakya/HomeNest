@@ -133,7 +133,7 @@ export default function EditProfile() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="w-full px-4 sm:px-6 lg:px-6 py-8">
+      <main className="w-full px-4 sm:px-6 lg:px-6 pt-2 md:pt-8 pb-8">
         {/* Header with Breadcrumb */}
         <div className="mb-8">
           <button 
