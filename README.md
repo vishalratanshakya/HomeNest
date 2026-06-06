@@ -1,4 +1,4 @@
-# HomeNest Marketplace
+# HomeNest 
 
 A full-stack scalable React.js application with Firebase and Cloudinary for a real estate marketplace platform.
 

@@ -21,7 +21,7 @@ export const razorpayService = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: options.amount,
         currency: options.currency || 'INR',
-        name: 'HomeNest Marketplace',
+        name: 'HomeNest',
         description: options.description,
         order_id: options.orderId,
         handler: options.onSuccess,

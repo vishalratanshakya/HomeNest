@@ -187,7 +187,7 @@ export default function UserHome() {
 
       <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 pt-0 pb-6 fade-in">
         {/* Hero Section - Full-width responsive layout */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8 w-full -mx-4 sm:mx-0 w-[calc(100%+2rem)] sm:w-full">
+        <div className="flex flex-col lg:flex-row gap-4 mb-8 -mx-4 sm:mx-0">
           {/* Hero Slider - takes 60% on large screens, full width on mobile */}
           <div className="w-full lg:w-[60%] relative rounded-none sm:rounded-3xl overflow-hidden h-64 sm:h-80 md:h-[380px] lg:h-[500px] sm:shadow-xl reveal flex-shrink-0">
             {heroSlides.map((slide, index) => (

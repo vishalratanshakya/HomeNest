@@ -411,7 +411,7 @@ export default function UserNavbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[110] bg-white p-6 md:p-10"
+            className="fixed inset-0 z-[110] bg-white p-6 md:p-10 overflow-y-auto"
           >
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Search</h2>

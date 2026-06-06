@@ -238,12 +238,13 @@
   }
 
   .info-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .info-box {
-    padding: 20px;
+    padding: 16px;
+    word-break: break-word;
   }
 
   .info-box p {
