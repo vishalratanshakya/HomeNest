@@ -136,7 +136,7 @@ export default function UserAuth() {
               {isLogin ? 'Welcome Back' : 'Create Account'}
             </h1>
             <p className="text-gray-400 text-[11px] md:text-sm font-bold mt-0.5">
-              {isLogin ? 'Sign in to your account' : 'Join our real estate platform'}
+              {isLogin ? 'Login in to your account' : 'Join our real estate platform'}
             </p>
           </div>
 
@@ -191,7 +191,7 @@ export default function UserAuth() {
 
             <button type="submit" disabled={loading}
               className="w-full py-2.5 bg-indigo-600 text-white rounded-xl font-black text-sm shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:scale-[0.99] transition-all active:scale-[0.97] disabled:opacity-50">
-              {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
+              {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Create Account')}
             </button>
           </form>
 
