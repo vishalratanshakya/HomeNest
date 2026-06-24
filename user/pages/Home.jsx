@@ -570,7 +570,7 @@ export default function UserHome() {
               <ul className="space-y-2.5">
                 {dummyCategories.slice(0, 4).map((category) => (
                   <li key={category.id}>
-                    <Link to={`/user/search?category=${category.id}`} className="text-slate-400 hover:text-white transition-colors text-sm">{category.name}</Link>
+                    <Link to="/user/home" className="text-slate-400 hover:text-white transition-colors text-sm">{category.name}</Link>
                   </li>
                 ))}
               </ul>
