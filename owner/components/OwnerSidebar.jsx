@@ -21,24 +21,24 @@ import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { firestoreService, authService, cloudinaryService } from '../../src/core/services/firebaseService';
 
-export default function VendorSidebar() {
+export default function OwnerSidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [messagesCount, setMessagesCount] = useState(0);
   const [user, setUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisitsOpen, setIsVisitsOpen] = useState(location.pathname.startsWith('/vendor/tracking'));
+  const [isVisitsOpen, setIsVisitsOpen] = useState(location.pathname.startsWith('/owner/tracking'));
 
   useEffect(() => {
     const handleToggle = () => setIsOpen(prev => !prev);
     const handleClose = () => setIsOpen(false);
     
-    window.addEventListener('toggle-vendor-sidebar', handleToggle);
-    window.addEventListener('close-vendor-sidebar', handleClose);
+    window.addEventListener('toggle-owner-sidebar', handleToggle);
+    window.addEventListener('close-owner-sidebar', handleClose);
     
     return () => {
-      window.removeEventListener('toggle-vendor-sidebar', handleToggle);
-      window.removeEventListener('close-vendor-sidebar', handleClose);
+      window.removeEventListener('toggle-owner-sidebar', handleToggle);
+      window.removeEventListener('close-owner-sidebar', handleClose);
     };
   }, []);
 
@@ -49,7 +49,7 @@ export default function VendorSidebar() {
       
       let uid = firebaseUser?.uid || sessionUser?.uid;
       let email = firebaseUser?.email || sessionUser?.email;
-      let role = sessionUser?.role || 'vendor';
+      let role = sessionUser?.role || 'owner';
       
       if (uid) {
         let displayName = sessionUser.displayName;
@@ -72,14 +72,14 @@ export default function VendorSidebar() {
           uid,
           email,
           role,
-          displayName: displayName || sessionUser?.displayName || firebaseUser?.displayName || 'Vendor',
+          displayName: displayName || sessionUser?.displayName || firebaseUser?.displayName || 'Owner',
           photoURL: photoURL || ''
         };
         
         setUser(updatedUser);
         sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
       } else {
-        setUser({ uid: 'mock', displayName: 'Vendor', role: 'vendor', email: '' });
+        setUser({ uid: 'mock', displayName: 'Owner', role: 'owner', email: '' });
       }
     };
     fetchUser();
@@ -90,7 +90,7 @@ export default function VendorSidebar() {
         const updatedUser = {
           ...sessionUser,
           ...e.detail,
-          role: e.detail.role || sessionUser.role || 'vendor'
+          role: e.detail.role || sessionUser.role || 'owner'
         };
         setUser(updatedUser);
         sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
@@ -105,9 +105,9 @@ export default function VendorSidebar() {
     if (!user || user.uid === 'mock') return;
     
     const unsubscribe = firestoreService.subscribeToConversations(
-      { vendorId: user.uid },
+      { ownerId: user.uid },
       (conversations) => {
-        const unreadTotal = conversations.reduce((acc, conv) => acc + (conv.unreadForVendor ?? 0), 0);
+        const unreadTotal = conversations.reduce((acc, conv) => acc + (conv.unreadForOwner ?? 0), 0);
         setMessagesCount(unreadTotal);
       }
     );
@@ -132,24 +132,24 @@ export default function VendorSidebar() {
   }, []);
 
   const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/vendor/dashboard' },
-    { icon: Home, label: 'My Properties', path: '/vendor/properties' },
-    { icon: Plus, label: 'Add New Property', path: '/vendor/add-property', isPrimary: true },
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/owner/dashboard' },
+    { icon: Home, label: 'My Properties', path: '/owner/properties' },
+    { icon: Plus, label: 'Add New Property', path: '/owner/add-property', isPrimary: true },
     { 
       icon: Calendar, 
       label: 'Property Visits', 
       isCollapsible: true,
       children: [
-        { label: 'Buy Property Tracking', path: '/vendor/tracking/buy' },
-        { label: 'Book Property Tracking', path: '/vendor/tracking/book' }
+        { label: 'Buy Property Tracking', path: '/owner/tracking/buy' },
+        { label: 'Book Property Tracking', path: '/owner/tracking/book' }
       ]
     },
-    { icon: Wallet, label: 'Earnings', path: '/vendor/earnings' },
-    { icon: MessageSquare, label: 'Messages', path: '/vendor/messages', badge: messagesCount },
-    { icon: BellIcon, label: 'Notifications', path: '/vendor/notifications' },
-    { icon: Star, label: 'Reviews', path: '/vendor/reviews' },
-    { icon: User, label: 'Profile', path: '/vendor/profile' },
-    { icon: Settings, label: 'Settings', path: '/vendor/settings' },
+    { icon: Wallet, label: 'Earnings', path: '/owner/earnings' },
+    { icon: MessageSquare, label: 'Messages', path: '/owner/messages', badge: messagesCount },
+    { icon: BellIcon, label: 'Notifications', path: '/owner/notifications' },
+    { icon: Star, label: 'Reviews', path: '/owner/reviews' },
+    { icon: User, label: 'Profile', path: '/owner/profile' },
+    { icon: Settings, label: 'Settings', path: '/owner/settings' },
     { icon: LogOut, label: 'Logout', path: '/logout' },
   ];
 
@@ -190,7 +190,7 @@ export default function VendorSidebar() {
                 className="h-10 w-auto object-contain"
               />
             </div>
-            <span className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Vendor Panel</span>
+            <span className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Owner Panel</span>
           </div>
         </div>
 
@@ -198,7 +198,7 @@ export default function VendorSidebar() {
       <nav className="flex-1 px-4 py-2 space-y-1.5 custom-scrollbar overflow-y-auto">
         {menuItems.map((item) => {
           if (item.isCollapsible) {
-            const isSubActive = location.pathname.startsWith('/vendor/tracking');
+            const isSubActive = location.pathname.startsWith('/owner/tracking');
             return (
               <div key={item.label} className="space-y-1">
                 <button
@@ -287,19 +287,19 @@ export default function VendorSidebar() {
       <div className="h-4" />
 
       {/* User Profile Card */}
-      <div className="p-6" onClick={() => navigate('/vendor/profile')}>
+      <div className="p-6" onClick={() => navigate('/owner/profile')}>
         <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-4 border border-white/10 shadow-xl group hover:bg-white/10 transition-all cursor-pointer">
           <div className="flex items-center gap-3">
             <div className="relative shrink-0">
               <img 
-                src={user?.photoURL ? cloudinaryService.optimizeUrl(user.photoURL, { width: 100, height: 100, crop: 'fill' }) : `https://ui-avatars.com/api/?name=${user?.displayName || 'Vendor'}&background=0D8ABC&color=fff&rounded=true&bold=true`} 
+                src={user?.photoURL ? cloudinaryService.optimizeUrl(user.photoURL, { width: 100, height: 100, crop: 'fill' }) : `https://ui-avatars.com/api/?name=${user?.displayName || 'Owner'}&background=0D8ABC&color=fff&rounded=true&bold=true`} 
                 alt="Profile" 
                 className="w-11 h-11 rounded-full border-2 border-white/10 group-hover:border-white/30 transition-all shadow-md object-cover"
               />
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#121564] rounded-full"></div>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold truncate">{user?.displayName || user?.name || user?.fullName || 'Vendor'}</p>
+              <p className="text-sm font-bold truncate">{user?.displayName || user?.name || user?.fullName || 'Owner'}</p>
               <p className="text-[9px] font-bold text-white/50 truncate mt-0.5">
                 {user?.email || ''}
               </p>

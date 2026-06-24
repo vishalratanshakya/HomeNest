@@ -42,8 +42,8 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import LocationSelector from '../components/LocationSelector';
 import BulkImportModal from '../components/BulkImportModal';
 import toast from 'react-hot-toast';
@@ -252,9 +252,9 @@ export default function AddProperty() {
         mainImage: mainImage,
         images: [mainImage, ...subImages].filter(img => img), // Backward compatibility + gallery
         subImages: subImages,
-        vendorId: user?.uid || 'anonymous',
-        vendorName: user?.displayName || formData.contactName,
-        vendorPhone: formData.contactPhone,
+        ownerId: user?.uid || 'anonymous',
+        ownerName: user?.displayName || formData.contactName,
+        ownerPhone: formData.contactPhone,
         status: 'active',
         category: formData.type, // Map formData.type to category
         rating: 5.0,
@@ -288,7 +288,7 @@ export default function AddProperty() {
       toast.success('Property published successfully!');
       setLastCreatedProperty({ ...propertyData, id: propertyId });
       setShowSuccessModal(true);
-      // navigate('/vendor/dashboard'); // Removed immediate navigate to show success card
+      // navigate('/owner/dashboard'); // Removed immediate navigate to show success card
     } catch (error) {
       console.error('Error publishing property:', error);
       toast.error('Failed to publish property');
@@ -301,9 +301,9 @@ export default function AddProperty() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-gray-50/50 transition-all duration-300 w-full overflow-x-hidden">
-        <VendorHeader />
+        <OwnerHeader />
 
         <div className="px-3 sm:px-6 lg:px-10 py-6 w-full">
           {/* Breadcrumbs & Title */}
@@ -968,7 +968,7 @@ export default function AddProperty() {
       <BulkImportModal
         isOpen={showJsonModal}
         onClose={() => setShowJsonModal(false)}
-        onSuccess={() => navigate('/vendor/properties')}
+        onSuccess={() => navigate('/owner/properties')}
         defaultListingType={jsonImportType}
       />
 
@@ -985,7 +985,7 @@ export default function AddProperty() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
-              onClick={() => navigate('/vendor/dashboard')}
+              onClick={() => navigate('/owner/dashboard')}
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -1029,7 +1029,7 @@ export default function AddProperty() {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
-                    onClick={() => navigate('/vendor/dashboard')}
+                    onClick={() => navigate('/owner/dashboard')}
                     className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm tracking-tight hover:bg-slate-800 transition-all shadow-lg"
                   >
                     Dashboard

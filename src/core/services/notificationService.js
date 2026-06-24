@@ -61,7 +61,7 @@ export const notificationService = {
       const notifications = snapshot.docs.map(doc => {
         const data = doc.data();
         // A broadcast notification is read if the user's ID is in the readBy array
-        const isBroadcast = data.userId === 'all' || data.userId === 'vendor' || data.userId === 'admin';
+        const isBroadcast = data.userId === 'all' || data.userId === 'owner' || data.userId === 'admin';
         const isRead = isBroadcast
           ? (data.readBy && Array.isArray(data.readBy) && data.readBy.includes(userId))
           : data.read;
@@ -90,7 +90,7 @@ export const notificationService = {
       const notifSnap = await getDoc(notifRef);
       if (notifSnap.exists()) {
         const notifData = notifSnap.data();
-        const isBroadcast = notifData.userId === 'all' || notifData.userId === 'vendor' || notifData.userId === 'admin';
+        const isBroadcast = notifData.userId === 'all' || notifData.userId === 'owner' || notifData.userId === 'admin';
         if (isBroadcast) {
           const readBy = notifData.readBy || [];
           if (!readBy.includes(userId)) {
@@ -124,7 +124,7 @@ export const notificationService = {
       const snapshot = await getDocs(q);
       const updatePromises = snapshot.docs.map(async (doc) => {
         const notifData = doc.data();
-        const isBroadcast = notifData.userId === 'all' || notifData.userId === 'vendor' || notifData.userId === 'admin';
+        const isBroadcast = notifData.userId === 'all' || notifData.userId === 'owner' || notifData.userId === 'admin';
         if (isBroadcast) {
           const readBy = notifData.readBy || [];
           if (!readBy.includes(userId)) {
@@ -157,13 +157,13 @@ export const notificationService = {
     });
   },
 
-  sendVendorNotification: async (vendorId, message, type = 'vendor') => {
+  sendOwnerNotification: async (ownerId, message, type = 'owner') => {
     return notificationService.createNotification({
-      userId: vendorId,
+      userId: ownerId,
       type,
-      title: 'Vendor Update',
+      title: 'Owner Update',
       message,
-      actionUrl: '/vendor/dashboard',
+      actionUrl: '/owner/dashboard',
     });
   },
 

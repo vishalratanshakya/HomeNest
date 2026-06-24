@@ -97,7 +97,7 @@ const AdminNotifications = () => {
       const audienceMap = {
         'all': 'all',
         'users': 'user',
-        'vendors': 'vendor'
+        'owners': 'owner'
       };
 
       await addDoc(collection(db, 'notifications'), {
@@ -130,8 +130,8 @@ const AdminNotifications = () => {
 
     setSending(true);
     try {
-      // Fetch all vendor emails
-      const q = query(collection(db, 'users'), where('role', '==', 'vendor'));
+      // Fetch all owner emails
+      const q = query(collection(db, 'users'), where('role', '==', 'owner'));
       const snapshot = await getDocs(q);
       const emails = snapshot.docs.map(doc => doc.data().email).filter(e => e);
       
@@ -186,7 +186,7 @@ const AdminNotifications = () => {
   const quickActions = [
     { 
       id: 'email', 
-      title: 'Email All Vendors', 
+      title: 'Email All Owners', 
       desc: 'Send announcement updates', 
       icon: <Mail className="w-6 h-6" />, 
       color: 'bg-blue-50 text-blue-600',
@@ -195,7 +195,7 @@ const AdminNotifications = () => {
     { 
       id: 'sms', 
       title: 'SMS Platform Alert', 
-      desc: 'Notify all vendors/users', 
+      desc: 'Notify all owners/users', 
       icon: <MessageSquare className="w-6 h-6" />, 
       color: 'bg-amber-50 text-amber-600',
       action: () => setOpenSMSModal(true)
@@ -218,7 +218,7 @@ const AdminNotifications = () => {
     },
     { 
       id: 'suspend', 
-      title: 'Suspend Vendor', 
+      title: 'Suspend Owner', 
       desc: 'Restrict access for policy violations', 
       icon: <UserX className="w-6 h-6" />, 
       color: 'bg-rose-50 text-rose-600',
@@ -234,7 +234,7 @@ const AdminNotifications = () => {
     },
     { 
       id: 'payment', 
-      title: 'Release Vendor Payment', 
+      title: 'Release Owner Payment', 
       desc: 'Authorize 12 pending payouts', 
       icon: <CreditCard className="w-6 h-6" />, 
       color: 'bg-slate-50 text-slate-600',
@@ -378,7 +378,7 @@ const AdminNotifications = () => {
                     </div>
                     <div>
                        <div className="flex justify-between text-[11px] font-black uppercase mb-2">
-                          <span className="flex items-center gap-2"><Building2 className="w-3 h-3" /> Vendor Delivery</span>
+                          <span className="flex items-center gap-2"><Building2 className="w-3 h-3" /> Owner Delivery</span>
                           <span className="bg-white/20 px-2 py-0.5 rounded-lg">98.2%</span>
                        </div>
                        <div className="w-full bg-white/10 rounded-full h-2"><div className="bg-emerald-400 h-full rounded-full w-[98.2%] shadow-[0_0_10px_rgba(52,211,153,0.5)]" /></div>
@@ -401,7 +401,7 @@ const AdminNotifications = () => {
                 <div className="space-y-2">
                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Target Audience</label>
                    <div className="flex gap-4">
-                      {['all', 'users', 'vendors'].map((aud) => (
+                      {['all', 'users', 'owners'].map((aud) => (
                         <button 
                           key={aud}
                           onClick={() => setNewBroadcast(prev => ({ ...prev, audience: aud }))}
@@ -430,14 +430,14 @@ const AdminNotifications = () => {
                    <Mail className="w-8 h-8" />
                 </div>
                 <div>
-                   <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">Email Vendors</h2>
+                   <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">Email Owners</h2>
                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Mass mailing via SMTP/Cloud</p>
                 </div>
              </div>
              <div className="space-y-6">
                 <InputGroup label="Subject Line" value={emailData.subject} onChange={(val) => setEmailData(p => ({ ...p, subject: val }))} placeholder="Enter email subject..." />
-                <TextAreaGroup label="Email Body" value={emailData.message} onChange={(val) => setEmailData(p => ({ ...p, message: val }))} placeholder="Compose your vendor announcement..." height="h-48" />
-                <ActionButton onClick={handleSendBulkEmail} loading={sending} icon={<Mail className="w-5 h-5" />} label={sending ? 'Sending Emails...' : 'Send Email To All Vendors'} color="bg-blue-600" />
+                <TextAreaGroup label="Email Body" value={emailData.message} onChange={(val) => setEmailData(p => ({ ...p, message: val }))} placeholder="Compose your owner announcement..." height="h-48" />
+                <ActionButton onClick={handleSendBulkEmail} loading={sending} icon={<Mail className="w-5 h-5" />} label={sending ? 'Sending Emails...' : 'Send Email To All Owners'} color="bg-blue-600" />
              </div>
           </ModalWrapper>
         )}

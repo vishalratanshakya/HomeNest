@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Home, MapPin, Mail, Phone, Calendar, Clock, FileText, ChevronRight, CheckCircle2, XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import toast from 'react-hot-toast';
 import { bookingService, authService } from '../../src/core/services/firebaseService';
 
-export default function VendorBookedPropertyTracking() {
+export default function OwnerBookedPropertyTracking() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ export default function VendorBookedPropertyTracking() {
     if (!user) return;
 
     setLoading(true);
-    const unsubscribe = bookingService.getVendorBookings(
+    const unsubscribe = bookingService.getOwnerBookings(
       user.uid,
       (data) => {
         const filteredData = (data || [])
@@ -74,9 +74,9 @@ export default function VendorBookedPropertyTracking() {
 
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-slate-50/50 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="px-4 sm:px-10 py-6 sm:py-10">
           {/* Header */}

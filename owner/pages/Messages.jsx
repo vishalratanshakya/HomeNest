@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import { 
   Search, 
   MoreVertical, 
@@ -71,7 +71,7 @@ export default function Messages() {
     if (!user) return;
 
     const unsubscribe = firestoreService.subscribeToConversations(
-      { vendorId: user.uid },
+      { ownerId: user.uid },
       (data) => {
         setConversations(data);
         setLoading(false);
@@ -107,7 +107,7 @@ export default function Messages() {
 
   useEffect(() => {
     if (activeId) {
-      firestoreService.markAsRead(activeId, 'vendor');
+      firestoreService.markAsRead(activeId, 'owner');
       window.dispatchEvent(new CustomEvent('notifications-read'));
     }
   }, [activeId]);
@@ -115,8 +115,8 @@ export default function Messages() {
   useEffect(() => {
     if (activeId && messages.length > 0) {
       const lastMsg = messages[messages.length - 1];
-      if (lastMsg.sender !== 'vendor') {
-        firestoreService.markAsRead(activeId, 'vendor');
+      if (lastMsg.sender !== 'owner') {
+        firestoreService.markAsRead(activeId, 'owner');
       }
     }
   }, [messages, activeId]);
@@ -155,13 +155,13 @@ export default function Messages() {
     try {
       const msgData = {
         text: text.trim(),
-        sender: 'vendor', // Identifying vendor as the sender
+        sender: 'owner', // Identifying owner as the sender
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
       // We need to pass the conversation info for sendMessage to handle existing conversations correctly
       const convoData = {
-        vendorId: user.uid,
+        ownerId: user.uid,
         userId: activeChat.userId,
         propertyId: activeChat.propertyId,
         propertyName: activeChat.property,
@@ -180,10 +180,10 @@ export default function Messages() {
 
   const handleMarkAllRead = async () => {
     try {
-      await Promise.all(conversations.map((chat) => firestoreService.markAsRead(chat.id, 'vendor')));
+      await Promise.all(conversations.map((chat) => firestoreService.markAsRead(chat.id, 'owner')));
       setConversations(prev => prev.map(chat => ({
         ...chat,
-        unreadForVendor: 0,
+        unreadForOwner: 0,
         unread: 0
       })));
       toast.success('All messages marked as read');
@@ -202,7 +202,7 @@ export default function Messages() {
   const filteredConversations = conversations.filter(c => {
     const name = c.name || "Guest";
     const property = c.property || "Property";
-    const unreadCount = c.unreadForVendor ?? 0;
+    const unreadCount = c.unreadForOwner ?? 0;
     const matchesSearch = name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          property.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilter = filterType === 'All' || (filterType === 'Unread' && unreadCount > 0);
@@ -211,9 +211,9 @@ export default function Messages() {
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans overflow-hidden">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 flex flex-col h-screen overflow-hidden transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="flex flex-1 overflow-hidden p-4 md:p-8 gap-6">
           {/* Chat Sidebar */}
@@ -233,7 +233,7 @@ export default function Messages() {
                       onClick={() => setFilterType('Unread')}
                       className={`text-[10px] font-black uppercase tracking-widest transition-colors ${filterType === 'Unread' ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-600'}`}
                     >
-                      Unread ({conversations.filter(c => (c.unreadForVendor ?? c.unread ?? 0) > 0).length})
+                      Unread ({conversations.filter(c => (c.unreadForOwner ?? c.unread ?? 0) > 0).length})
                     </button>
                   </div>
                 </div>
@@ -301,14 +301,14 @@ export default function Messages() {
                           <Home className="w-3 h-3" /> {chat.property}
                         </p>
                       <p className={`text-xs truncate ${
-                          (chat.unreadForVendor > 0) ? 'font-black text-gray-900' : 'text-gray-400 font-medium'
+                          (chat.unreadForOwner > 0) ? 'font-black text-gray-900' : 'text-gray-400 font-medium'
                         }`}>
                         {chat.lastMessage}
                       </p>
                     </div>
-                    {(chat.unreadForVendor > 0) && (
+                    {(chat.unreadForOwner > 0) && (
                       <div className="ml-2 w-5 h-5 bg-indigo-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-indigo-200">
-                        {chat.unreadForVendor}
+                        {chat.unreadForOwner}
                       </div>
                     )}
                   </button>
@@ -402,20 +402,20 @@ export default function Messages() {
                     {messages.map((msg) => (
                       <div 
                         key={msg.id} 
-                        className={`flex mb-6 ${msg.sender === 'vendor' ? 'justify-end' : 'justify-start'}`}
+                        className={`flex mb-6 ${msg.sender === 'owner' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div className={`max-w-[70%] group`}>
                           <div className={`
                             px-6 py-4 rounded-[2rem] text-sm font-medium shadow-sm relative transition-all group-hover:shadow-md
-                            ${msg.sender === 'vendor' 
+                            ${msg.sender === 'owner' 
                               ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-tr-none' 
                               : 'bg-white text-gray-800 rounded-tl-none border border-gray-100'}
                           `}>
                             {msg.text}
                           </div>
-                          <div className={`mt-2 flex items-center gap-1.5 ${msg.sender === 'vendor' ? 'justify-end' : 'justify-start'}`}>
+                          <div className={`mt-2 flex items-center gap-1.5 ${msg.sender === 'owner' ? 'justify-end' : 'justify-start'}`}>
                             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{msg.time}</span>
-                            {msg.sender === 'vendor' && <CheckCircle className="w-3 h-3 text-indigo-300" />}
+                            {msg.sender === 'owner' && <CheckCircle className="w-3 h-3 text-indigo-300" />}
                           </div>
                         </div>
                       </div>

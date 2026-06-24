@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./admin/**/*.{js,ts,jsx,tsx}",
-    "./vendor/**/*.{js,ts,jsx,tsx}",
+    "./owner/**/*.{js,ts,jsx,tsx}",
     "./user/**/*.{js,ts,jsx,tsx}",
     "./auth/**/*.{js,ts,jsx,tsx}",
   ],

@@ -72,9 +72,9 @@ async function seed() {
             images: [mainImage],
             location: { city: "Bengaluru", locality: "Downtown" },
             amenities: pType === 'Land' ? ["Water Supply"] : ["Security", "Parking", "CCTV"],
-            vendorId: auth.currentUser.uid,
-            vendorRole: "admin",
-            vendorName: "Admin",
+            ownerId: auth.currentUser.uid,
+            ownerRole: "admin",
+            ownerName: "Admin",
             status: "active",
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()

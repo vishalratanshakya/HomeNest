@@ -12,7 +12,7 @@ export default function UserProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [vendor, setVendor] = useState(null);
+  const [owner, setOwner] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -28,21 +28,21 @@ export default function UserProductDetails() {
     setSelectedImage(prev => (prev - 1 + product.images.length) % product.images.length);
   };
 
-  const handleMessageVendor = async () => {
+  const handleMessageOwner = async () => {
     const user = authService.getCurrentUser();
     if (!user) {
-      toast.error("Please login to message the vendor");
+      toast.error("Please login to message the owner");
       navigate('/auth/login');
       return;
     }
 
     try {
       const convoData = {
-        vendorId: product.vendorId,
-        vendorName: vendor?.name || 'Property Vendor',
-        vendorAvatar: vendor?.avatar || 'https://i.pravatar.cc/150?u=' + product.vendorId,
-        vendorPhone: product.vendorPhone,
-        vendorEmail: product.vendorEmail,
+        ownerId: product.ownerId,
+        ownerName: owner?.name || 'Property Owner',
+        ownerAvatar: owner?.avatar || 'https://i.pravatar.cc/150?u=' + product.ownerId,
+        ownerPhone: product.ownerPhone,
+        ownerEmail: product.ownerEmail,
         userId: user.uid,
         userName: user.displayName || 'Interested Buyer',
         userAvatar: user.photoURL,
@@ -65,8 +65,8 @@ export default function UserProductDetails() {
     }
   };
 
-  const handleCallVendor = () => {
-    const phone = product.vendorPhone || '+919988776655';
+  const handleCallOwner = () => {
+    const phone = product.ownerPhone || '+919988776655';
     window.location.href = `tel:${phone}`;
   };
 
@@ -115,41 +115,41 @@ export default function UserProductDetails() {
             setFavorites([]);
           }
           
-          let actualVendor = null;
-          if (foundProperty.vendorId) {
+          let actualOwner = null;
+          if (foundProperty.ownerId) {
             try {
-              const vendorDoc = await firestoreService.getUserDocument(foundProperty.vendorId);
-              if (vendorDoc) {
-                const vName = vendorDoc.fullName || vendorDoc.displayName || vendorDoc.name || foundProperty.vendorName || 'Property Vendor';
-                actualVendor = {
-                  id: foundProperty.vendorId,
+              const ownerDoc = await firestoreService.getUserDocument(foundProperty.ownerId);
+              if (ownerDoc) {
+                const vName = ownerDoc.fullName || ownerDoc.displayName || ownerDoc.name || foundProperty.ownerName || 'Property Owner';
+                actualOwner = {
+                  id: foundProperty.ownerId,
                   name: vName,
-                  avatar: vendorDoc.photoURL || vendorDoc.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(vName)}&background=0D8ABC&color=fff`,
-                  rating: vendorDoc.rating || 5.0,
-                  totalSales: vendorDoc.totalSales || foundProperty.vendorSales || 0,
-                  phone: vendorDoc.phone || vendorDoc.phoneNumber || foundProperty.vendorPhone,
-                  email: vendorDoc.email || foundProperty.vendorEmail
+                  avatar: ownerDoc.photoURL || ownerDoc.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(vName)}&background=0D8ABC&color=fff`,
+                  rating: ownerDoc.rating || 5.0,
+                  totalSales: ownerDoc.totalSales || foundProperty.ownerSales || 0,
+                  phone: ownerDoc.phone || ownerDoc.phoneNumber || foundProperty.ownerPhone,
+                  email: ownerDoc.email || foundProperty.ownerEmail
                 };
               }
             } catch (vErr) {
-              console.error("Error fetching vendor profile:", vErr);
+              console.error("Error fetching owner profile:", vErr);
             }
           }
 
-          if (!actualVendor) {
-            const vName = foundProperty.vendorName || 'Property Vendor';
-            actualVendor = { 
-              id: foundProperty.vendorId || 'V001', 
+          if (!actualOwner) {
+            const vName = foundProperty.ownerName || 'Property Owner';
+            actualOwner = { 
+              id: foundProperty.ownerId || 'V001', 
               name: vName, 
               avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(vName)}&background=0D8ABC&color=fff`,
               rating: 5.0,
-              totalSales: foundProperty.vendorSales || 0,
-              phone: foundProperty.vendorPhone || '+91 9988776655',
-              email: foundProperty.vendorEmail || 'agent@example.com'
+              totalSales: foundProperty.ownerSales || 0,
+              phone: foundProperty.ownerPhone || '+91 9988776655',
+              email: foundProperty.ownerEmail || 'agent@example.com'
             };
           }
             
-          setVendor(actualVendor);
+          setOwner(actualOwner);
           setSelectedImage(0);
           window.scrollTo(0, 0);
         } else {
@@ -204,9 +204,9 @@ export default function UserProductDetails() {
         furnished: data.furnishing || data.specifications?.furnished || 'Semi-Furnished'
       },
       images: allImages,
-      vendorId: data.vendorId || 'V001',
-      vendorPhone: data.vendorPhone || data.phone || '+91 9988776655',
-      vendorEmail: data.vendorEmail || data.email || 'agent@example.com'
+      ownerId: data.ownerId || 'V001',
+      ownerPhone: data.ownerPhone || data.phone || '+91 9988776655',
+      ownerEmail: data.ownerEmail || data.email || 'agent@example.com'
     };
   };
 
@@ -493,10 +493,10 @@ export default function UserProductDetails() {
                 {product.name}
               </h1>
 
-              {vendor && (
+              {owner && (
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Listed By</span>
-                  <span className="text-sm font-black text-blue-600 uppercase tracking-tight">{vendor.name}</span>
+                  <span className="text-sm font-black text-blue-600 uppercase tracking-tight">{owner.name}</span>
                 </div>
               )}
 
@@ -595,30 +595,30 @@ export default function UserProductDetails() {
               </div>
             </div>
 
-            {/* Vendor Info Card */}
-            {vendor && (
+            {/* Owner Info Card */}
+            {owner && (
               <div className="mt-4 p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm group">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Listing Expert</p>
                 <div className="flex items-center gap-5">
                   <div className="relative">
-                    <img src={vendor.avatar} className="w-16 h-16 rounded-full object-cover border-2 border-slate-100 group-hover:border-blue-600 transition-colors" alt="Agent" />
+                    <img src={owner.avatar} className="w-16 h-16 rounded-full object-cover border-2 border-slate-100 group-hover:border-blue-600 transition-colors" alt="Agent" />
                     <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full" />
                   </div>
                   <div>
-                    <p className="text-lg font-black text-slate-900 uppercase tracking-tight">{vendor.name}</p>
-                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest">{vendor.totalSales} Properties Managed</p>
+                    <p className="text-lg font-black text-slate-900 uppercase tracking-tight">{owner.name}</p>
+                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest">{owner.totalSales} Properties Managed</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <button 
-                    onClick={handleCallVendor}
+                    onClick={handleCallOwner}
                     className="flex items-center justify-center gap-2 py-4 bg-slate-50 text-slate-900 rounded-2xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all"
                   >
                     <Phone className="w-4 h-4" />
                     CALL
                   </button>
                   <button 
-                    onClick={handleMessageVendor}
+                    onClick={handleMessageOwner}
                     className="flex items-center justify-center gap-2 py-4 bg-slate-50 text-slate-900 rounded-2xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all"
                   >
                     <MessageSquare className="w-4 h-4" />

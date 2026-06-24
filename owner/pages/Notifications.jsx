@@ -33,12 +33,12 @@ import {
 } from 'firebase/firestore';
 import { useNotifications } from '@core/hooks/useNotifications';
 import toast from 'react-hot-toast';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 
-const VendorNotifications = () => {
+const OwnerNotifications = () => {
   const currentUser = authService.getCurrentUser() || JSON.parse(sessionStorage.getItem('currentUser'));
-  const { notifications: liveNotifications, markAllAsRead } = useNotifications(currentUser?.uid, 'vendor');
+  const { notifications: liveNotifications, markAllAsRead } = useNotifications(currentUser?.uid, 'owner');
   const [loading, setLoading] = useState(true);
   
   // Modals
@@ -59,8 +59,8 @@ const VendorNotifications = () => {
     setSending(true);
     try {
       await addDoc(collection(db, 'support_tickets'), {
-        vendorId: currentUser?.uid,
-        vendorName: currentUser?.displayName || 'Unknown Vendor',
+        ownerId: currentUser?.uid,
+        ownerName: currentUser?.displayName || 'Unknown Owner',
         ...supportData,
         status: 'open',
         createdAt: serverTimestamp(),
@@ -121,10 +121,10 @@ const VendorNotifications = () => {
 
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
-      <VendorSidebar />
+      <OwnerSidebar />
       
       <main className="flex-1 w-full lg:ml-72 ml-0 flex flex-col h-screen overflow-y-auto transition-all duration-300 custom-scrollbar">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="space-y-10 pb-20 p-6 lg:p-10 w-full">
           {/* Header */}
@@ -147,7 +147,7 @@ const VendorNotifications = () => {
         <div className="xl:col-span-2 space-y-6">
            <div className="flex items-center justify-between">
               <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest">Broadcast Feed</h2>
-              <div className="text-[10px] font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">VENDOR ALERTS</div>
+              <div className="text-[10px] font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">OWNER ALERTS</div>
            </div>
            
            <div className="space-y-4">
@@ -200,7 +200,7 @@ const VendorNotifications = () => {
         {/* Right Column: Quick Actions */}
         <div className="space-y-8">
            <div>
-              <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Vendor Operations</h2>
+              <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Owner Operations</h2>
               <div className="bg-white rounded-[28px] shadow-sm p-6 border border-gray-50 space-y-4">
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
                     {quickActions.map((action) => (
@@ -279,7 +279,7 @@ const VendorNotifications = () => {
                   </div>
                   <div>
                      <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">Contact Admin</h2>
-                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Priority Vendor Support</p>
+                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Priority Owner Support</p>
                   </div>
                </div>
 
@@ -318,4 +318,4 @@ const VendorNotifications = () => {
   );
 };
 
-export default VendorNotifications;
+export default OwnerNotifications;

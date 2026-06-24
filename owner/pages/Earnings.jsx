@@ -23,8 +23,8 @@ import {
   ChevronDown
 } from "lucide-react";
 import { motion } from "framer-motion";
-import VendorSidebar from "../components/VendorSidebar";
-import VendorHeader from "../components/VendorHeader";
+import OwnerSidebar from "../components/OwnerSidebar";
+import OwnerHeader from "../components/OwnerHeader";
 import toast from "react-hot-toast";
 import { bookingService, authService } from "../../src/core/services/firebaseService";
 
@@ -65,7 +65,7 @@ export default function Earnings() {
     if (!currentUser) return;
 
     setLoading(true);
-    const unsubscribe = bookingService.getVendorBookings(currentUser.uid, (data) => {
+    const unsubscribe = bookingService.getOwnerBookings(currentUser.uid, (data) => {
       setBookings(data);
       setLoading(false);
     });
@@ -146,9 +146,9 @@ export default function Earnings() {
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-slate-50/50 transition-all duration-300 overflow-x-hidden">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="p-4 md:p-10 space-y-8 max-w-full overflow-x-hidden">
           {/* HEADER */}

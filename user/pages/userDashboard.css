@@ -1067,14 +1067,14 @@
   align-items: center;
 }
 
-/* VENDOR INFO */
-.vendor-info {
+/* OWNER INFO */
+.owner-info {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.vendor-info img {
+.owner-info img {
   width: 58px;
   height: 58px;
 
@@ -1083,14 +1083,14 @@
   object-fit: cover;
 }
 
-.vendor-info h3 {
+.owner-info h3 {
   font-size: 18px;
   color: #1e40af;
 
   margin-bottom: 4px;
 }
 
-.vendor-info p {
+.owner-info p {
   font-size: 13px;
   color: #64748b;
 }
@@ -1169,8 +1169,8 @@
   border-bottom-right-radius: 6px;
 }
 
-/* VENDOR */
-.vendor-message {
+/* OWNER */
+.owner-message {
   background: white;
   color: #1e40af;
 

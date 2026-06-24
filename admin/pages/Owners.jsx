@@ -22,44 +22,44 @@ import { firestoreService } from '@core/services/firebaseService';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AdminVendors = () => {
-  const [vendors, setVendors] = useState([]);
+const AdminOwners = () => {
+  const [owners, setOwners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
 
   useEffect(() => {
     const unsubscribe = firestoreService.subscribeToUsers((data) => {
-      setVendors(data.filter(u => u.role === 'vendor' || u.role === 'agent'));
+      setOwners(data.filter(u => u.role === 'owner' || u.role === 'agent'));
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
-  const handleUpdateStatus = async (vendorId, status) => {
+  const handleUpdateStatus = async (ownerId, status) => {
     try {
-      await firestoreService.updateUserStatus(vendorId, status);
-      toast.success(`Vendor status updated to ${status}`);
+      await firestoreService.updateUserStatus(ownerId, status);
+      toast.success(`Owner status updated to ${status}`);
     } catch (error) {
       toast.error('Failed to update status');
     }
   };
 
-  const handleDeleteVendor = async (vendorId) => {
-    if (window.confirm('Delete this vendor? This will remove all their property associations.')) {
+  const handleDeleteOwner = async (ownerId) => {
+    if (window.confirm('Delete this owner? This will remove all their property associations.')) {
       try {
-        // Delete from both users and vendors collections
-        await firestoreService.deleteUser(vendorId);
-        await firestoreService.deleteVendor(vendorId);
-        toast.success('Vendor removed successfully');
+        // Delete from both users and owners collections
+        await firestoreService.deleteUser(ownerId);
+        await firestoreService.deleteOwner(ownerId);
+        toast.success('Owner removed successfully');
       } catch (error) {
-        console.error('Vendor deletion error:', error);
-        toast.error('Failed to delete vendor');
+        console.error('Owner deletion error:', error);
+        toast.error('Failed to delete owner');
       }
     }
   };
 
-  const filteredVendors = vendors.filter(v => {
+  const filteredOwners = owners.filter(v => {
     const matchesSearch = 
       v.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       v.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -79,7 +79,7 @@ const AdminVendors = () => {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight uppercase">Vendor Management</h1>
+          <h1 className="text-3xl font-black text-gray-900 tracking-tight uppercase">Owner Management</h1>
           <p className="text-gray-500 font-medium">Verify partners and track agency performance.</p>
         </div>
         <button className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-100 rounded-2xl font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm">
@@ -95,9 +95,9 @@ const AdminVendors = () => {
             <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
               <UserSquare2 className="w-4 h-4" />
             </div>
-            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Active Vendors</span>
+            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Active Owners</span>
           </div>
-          <p className="text-2xl font-black text-gray-900">{vendors.filter(v => v.status === 'active').length}</p>
+          <p className="text-2xl font-black text-gray-900">{owners.filter(v => v.status === 'active').length}</p>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-50 shadow-sm">
           <div className="flex items-center gap-3 mb-2">
@@ -106,7 +106,7 @@ const AdminVendors = () => {
             </div>
             <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pending KYC</span>
           </div>
-          <p className="text-2xl font-black text-gray-900">{vendors.filter(v => v.status === 'pending').length}</p>
+          <p className="text-2xl font-black text-gray-900">{owners.filter(v => v.status === 'pending').length}</p>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-50 shadow-sm">
           <div className="flex items-center gap-3 mb-2">
@@ -115,7 +115,7 @@ const AdminVendors = () => {
             </div>
             <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Revenue Generated</span>
           </div>
-          <p className="text-2xl font-black text-gray-900">₹{vendors.reduce((acc, v) => acc + (v.revenue || 0), 0).toLocaleString()}</p>
+          <p className="text-2xl font-black text-gray-900">₹{owners.reduce((acc, v) => acc + (v.revenue || 0), 0).toLocaleString()}</p>
         </div>
       </div>
 
@@ -143,12 +143,12 @@ const AdminVendors = () => {
         </select>
       </div>
 
-      {/* Vendor Grid/List */}
+      {/* Owner Grid/List */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <AnimatePresence>
-          {filteredVendors.map((vendor, idx) => (
+          {filteredOwners.map((owner, idx) => (
             <motion.div
-              key={vendor.id}
+              key={owner.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.05 }}
@@ -157,34 +157,34 @@ const AdminVendors = () => {
               <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-5">
                   <div className="w-16 h-16 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-3xl flex items-center justify-center border border-indigo-200/20">
-                    {vendor.photoURL ? (
-                      <img src={vendor.photoURL} className="w-full h-full rounded-3xl object-cover" />
+                    {owner.photoURL ? (
+                      <img src={owner.photoURL} className="w-full h-full rounded-3xl object-cover" />
                     ) : (
                       <Building2 className="w-8 h-8 text-indigo-400" />
                     )}
                   </div>
                   <div>
-                    <h3 className="text-lg font-black text-gray-900 tracking-tight">{vendor.companyName || vendor.displayName || 'Unnamed Agency'}</h3>
+                    <h3 className="text-lg font-black text-gray-900 tracking-tight">{owner.companyName || owner.displayName || 'Unnamed Agency'}</h3>
                     <div className="flex items-center gap-2 mt-1">
                        <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                         vendor.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 
-                         vendor.status === 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-rose-50 text-rose-600'
+                         owner.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 
+                         owner.status === 'pending' ? 'bg-amber-50 text-amber-600' : 'bg-rose-50 text-rose-600'
                        }`}>
-                         {vendor.status || 'pending'}
+                         {owner.status || 'pending'}
                        </span>
-                       <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">• {vendor.role}</span>
+                       <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">• {owner.role}</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                    <button 
-                     onClick={() => handleUpdateStatus(vendor.id, 'active')}
+                     onClick={() => handleUpdateStatus(owner.id, 'active')}
                      className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl hover:bg-emerald-600 hover:text-white transition-all border border-emerald-100/50 shadow-sm"
                    >
                      <CheckCircle2 className="w-4 h-4" />
                    </button>
                    <button 
-                     onClick={() => handleUpdateStatus(vendor.id, 'suspended')}
+                     onClick={() => handleUpdateStatus(owner.id, 'suspended')}
                      className="p-2.5 bg-rose-50 text-rose-600 rounded-xl hover:bg-rose-600 hover:text-white transition-all border border-rose-100/50 shadow-sm"
                    >
                      <Ban className="w-4 h-4" />
@@ -198,14 +198,14 @@ const AdminVendors = () => {
                     <Home className="w-3 h-3 text-gray-400" />
                     <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Inventory</span>
                   </div>
-                  <p className="text-sm font-black text-gray-900">{vendor.propertyCount || 0} listings</p>
+                  <p className="text-sm font-black text-gray-900">{owner.propertyCount || 0} listings</p>
                 </div>
                 <div className="bg-gray-50/50 p-4 rounded-2xl border border-gray-100/50">
                   <div className="flex items-center gap-2 mb-1">
                     <DollarSign className="w-3 h-3 text-gray-400" />
                     <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Earnings</span>
                   </div>
-                  <p className="text-sm font-black text-gray-900">₹{(vendor.revenue || 0).toLocaleString()}</p>
+                  <p className="text-sm font-black text-gray-900">₹{(owner.revenue || 0).toLocaleString()}</p>
                 </div>
               </div>
 
@@ -213,17 +213,17 @@ const AdminVendors = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-xs font-bold text-gray-500">
                     <Mail className="w-4 h-4" />
-                    <span>{vendor.email}</span>
+                    <span>{owner.email}</span>
                   </div>
-                  {vendor.phone && (
+                  {owner.phone && (
                     <div className="flex items-center gap-2 text-xs font-bold text-gray-500">
                       <Phone className="w-4 h-4" />
-                      <span>{vendor.phone}</span>
+                      <span>{owner.phone}</span>
                     </div>
                   )}
                 </div>
                 <button 
-                  onClick={() => handleDeleteVendor(vendor.id)}
+                  onClick={() => handleDeleteOwner(owner.id)}
                   className="px-6 py-3 bg-gray-50 text-gray-400 hover:bg-rose-500 hover:text-white rounded-2xl font-bold text-xs uppercase tracking-widest transition-all"
                 >
                   Remove Account
@@ -237,4 +237,4 @@ const AdminVendors = () => {
   );
 };
 
-export default AdminVendors;
+export default AdminOwners;

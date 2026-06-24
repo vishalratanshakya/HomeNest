@@ -13,7 +13,7 @@ A full-stack scalable React.js application with Firebase and Cloudinary for a re
 - Profile management
 - Notifications
 
-### Vendor Portal
+### Owner Portal
 - Dashboard with analytics
 - Add/Edit/Delete products
 - Image upload via Cloudinary
@@ -25,7 +25,7 @@ A full-stack scalable React.js application with Firebase and Cloudinary for a re
 ### Admin Portal
 - Dashboard with charts and statistics
 - User management (Block/Unblock/Delete)
-- Vendor management (Approve/Reject/Suspend)
+- Owner management (Approve/Reject/Suspend)
 - Order management
 - Category management
 - Send notifications
@@ -69,7 +69,7 @@ A full-stack scalable React.js application with Firebase and Cloudinary for a re
 │   ├── pages/
 │   │   ├── Dashboard.jsx
 │   │   ├── Users.jsx
-│   │   ├── Vendors.jsx
+│   │   ├── Owners.jsx
 │   │   ├── Orders.jsx
 │   │   ├── Analytics.jsx
 │   │   └── Settings.jsx
@@ -77,7 +77,7 @@ A full-stack scalable React.js application with Firebase and Cloudinary for a re
 │   ├── services/
 │   │   └── adminService.js
 │   └── store/
-├── vendor/
+├── owner/
 │   ├── pages/
 │   │   ├── Dashboard.jsx
 │   │   ├── AddProduct.jsx
@@ -88,7 +88,7 @@ A full-stack scalable React.js application with Firebase and Cloudinary for a re
 │   │   └── Profile.jsx
 │   ├── components/
 │   ├── services/
-│   │   ├── vendorService.js
+│   │   ├── ownerService.js
 │   │   └── productService.js
 │   └── store/
 ├── user/
@@ -207,11 +207,11 @@ The built files will be in the `dist` directory.
 The application supports:
 - Email/Password authentication
 - Phone authentication with OTP
-- Role-based access control (Admin, Vendor, User)
+- Role-based access control (Admin, Owner, User)
 
 After login, users are redirected based on their role:
 - Admin → `/admin/dashboard`
-- Vendor → `/vendor/dashboard`
+- Owner → `/owner/dashboard`
 - User → `/user/home`
 
 ## Firestore Security Rules
@@ -230,20 +230,20 @@ service cloud.firestore {
     // Products collection
     match /products/{productId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null && request.auth.token.role == 'vendor';
+      allow create, update, delete: if request.auth != null && request.auth.token.role == 'owner';
     }
     
     // Orders collection
     match /orders/{orderId} {
-      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || resource.data.vendorId == request.auth.uid || request.auth.token.role == 'admin');
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || resource.data.ownerId == request.auth.uid || request.auth.token.role == 'admin');
       allow create: if request.auth != null;
-      allow update: if request.auth != null && (resource.data.vendorId == request.auth.uid || request.auth.token.role == 'admin');
+      allow update: if request.auth != null && (resource.data.ownerId == request.auth.uid || request.auth.token.role == 'admin');
     }
     
-    // Vendors collection
-    match /vendors/{vendorId} {
+    // Owners collection
+    match /owners/{ownerId} {
       allow read: if true;
-      allow update: if request.auth != null && (request.auth.uid == vendorId || request.auth.token.role == 'admin');
+      allow update: if request.auth != null && (request.auth.uid == ownerId || request.auth.token.role == 'admin');
     }
     
     // Notifications collection
@@ -258,7 +258,7 @@ service cloud.firestore {
 
 The application uses Firestore's `onSnapshot` listeners for real-time updates:
 - Live order status updates
-- Vendor receives instant order notifications
+- Owner receives instant order notifications
 - User sees real-time order tracking
 
 ## Dummy Data
@@ -266,7 +266,7 @@ The application uses Firestore's `onSnapshot` listeners for real-time updates:
 The application includes dummy data for:
 - Products
 - Users
-- Vendors
+- Owners
 - Orders
 - Categories
 - Notifications

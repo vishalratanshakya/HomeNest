@@ -173,7 +173,7 @@ export default function UserNavbar() {
               { label: 'Sale', path: '/user/sale' },
               { label: 'Rent', path: '/user/rent' },
               { label: 'Contact', path: '/user/contact' },
-              { label: 'Register as Owner', path: '/vendor/login' }
+              { label: 'Register as Owner', path: '/owner/login' }
             ].map((link) => {
               const isActive = location.pathname === link.path || (link.path !== '/user/home' && location.pathname.startsWith(link.path));
               return (
@@ -312,7 +312,7 @@ export default function UserNavbar() {
             {/* Auth Logic */}
             <div className="flex items-center space-x-2 md:space-x-4 pl-2 md:pl-4 border-l border-slate-100">
               <Link 
-                to="/vendor/login" 
+                to="/owner/login" 
                 className="md:hidden px-2.5 py-1.5 bg-slate-900 text-white text-[9px] font-black rounded-lg"
               >
                 Register as Owner

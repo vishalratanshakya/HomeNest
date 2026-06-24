@@ -9,7 +9,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@admin': path.resolve(__dirname, './admin'),
-      '@vendor': path.resolve(__dirname, './vendor'),
+      '@owner': path.resolve(__dirname, './owner'),
       '@user': path.resolve(__dirname, './user'),
       '@auth': path.resolve(__dirname, './auth'),
       '@core': path.resolve(__dirname, './src/core'),
@@ -23,11 +23,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
-          'ui-vendor': ['framer-motion', 'lucide-react', 'react-icons'],
-          'chart-vendor': ['recharts'],
-          'pdf-vendor': ['html2canvas', 'jspdf']
+          'react-owner': ['react', 'react-dom', 'react-router-dom'],
+          'firebase-owner': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
+          'ui-owner': ['framer-motion', 'lucide-react', 'react-icons'],
+          'chart-owner': ['recharts'],
+          'pdf-owner': ['html2canvas', 'jspdf']
         }
       }
     },

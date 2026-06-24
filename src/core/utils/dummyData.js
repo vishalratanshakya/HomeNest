@@ -6,7 +6,7 @@ export const dummyProducts = [
     description: 'Spacious 3-bedroom apartment with modern amenities, city views, and premium finishes.',
     category: 'apartment',
     price: 450000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -44,7 +44,7 @@ export const dummyProducts = [
     description: 'Perfect starter home with efficient layout and great natural light.',
     category: 'apartment',
     price: 180000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -82,7 +82,7 @@ export const dummyProducts = [
     description: 'Wake up to ocean views in this beautifully designed beachfront condominium.',
     category: 'apartment',
     price: 675000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -120,7 +120,7 @@ export const dummyProducts = [
     description: 'Luxurious penthouse with panoramic city views and private rooftop terrace.',
     category: 'apartment',
     price: 950000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
@@ -158,7 +158,7 @@ export const dummyProducts = [
     description: 'Modern loft apartment with high ceilings, exposed brick, and industrial design elements.',
     category: 'apartment',
     price: 320000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -196,7 +196,7 @@ export const dummyProducts = [
     description: 'Spacious apartment perfect for families with multiple bedrooms and kid-friendly amenities.',
     category: 'apartment',
     price: 385000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -234,7 +234,7 @@ export const dummyProducts = [
     description: 'Beautiful apartment with stunning city skyline views and modern interior design.',
     category: 'apartment',
     price: 520000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -272,7 +272,7 @@ export const dummyProducts = [
     description: 'Luxurious high-rise apartment with premium amenities and concierge service.',
     category: 'apartment',
     price: 780000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -310,7 +310,7 @@ export const dummyProducts = [
     description: 'Premium high-rise apartment with concierge service and amenities.',
     category: 'apartment',
     price: 780000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
@@ -348,7 +348,7 @@ export const dummyProducts = [
     description: 'Affordable apartment with essential amenities in a convenient location.',
     category: 'apartment',
     price: 165000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
@@ -389,8 +389,8 @@ export const dummyProducts = [
     type: 'Penthouse',
     category: 'apartment',
     price: 1250000,
-    vendorId: 'vendor_1',
-    vendorName: 'Antigravity Real Estate',
+    ownerId: 'owner_1',
+    ownerName: 'Antigravity Real Estate',
     mainImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200',
     subImages: [
       'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800',
@@ -423,8 +423,8 @@ export const dummyProducts = [
     type: 'Villa',
     category: 'villa',
     price: 850000,
-    vendorId: 'vendor_2',
-    vendorName: 'Zen Homes',
+    ownerId: 'owner_2',
+    ownerName: 'Zen Homes',
     mainImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200',
     subImages: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -455,7 +455,7 @@ export const dummyProducts = [
     description: 'Stunning 5-bedroom villa with private pool, garden, and entertainment area.',
     category: 'villa',
     price: 1200000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
@@ -493,7 +493,7 @@ export const dummyProducts = [
     description: 'Elegant Mediterranean-style villa with terracotta roof and courtyard.',
     category: 'villa',
     price: 980000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -531,7 +531,7 @@ export const dummyProducts = [
     description: 'Luxurious beachfront villa with private beach access and ocean views.',
     category: 'villa',
     price: 1850000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
@@ -569,7 +569,7 @@ export const dummyProducts = [
     description: 'Sprawling country estate with vineyard, stables, and panoramic views.',
     category: 'villa',
     price: 2500000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -607,7 +607,7 @@ export const dummyProducts = [
     description: 'Sleek minimalist villa with clean lines and modern architecture.',
     category: 'villa',
     price: 1350000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
@@ -645,7 +645,7 @@ export const dummyProducts = [
     description: 'Beautiful villa on the lake with private dock and stunning water views.',
     category: 'villa',
     price: 1650000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -683,7 +683,7 @@ export const dummyProducts = [
     description: 'Authentic Tuscan-style villa with olive groves and wine cellar.',
     category: 'villa',
     price: 1450000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
@@ -721,7 +721,7 @@ export const dummyProducts = [
     description: 'Dramatic hillside villa with panoramic views and infinity edge pool.',
     category: 'villa',
     price: 1350000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -759,7 +759,7 @@ export const dummyProducts = [
     description: 'Exotic tropical villa with lush gardens and infinity pool.',
     category: 'villa',
     price: 1950000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
@@ -797,7 +797,7 @@ export const dummyProducts = [
     description: 'Spacious family villa with multiple living areas and large backyard.',
     category: 'villa',
     price: 890000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
@@ -836,7 +836,7 @@ export const dummyProducts = [
     description: 'Prime location office space suitable for tech companies and startups.',
     category: 'commercial',
     price: 850000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
       'https://images.unsplash.com/photo-1555529733-0e670560f7e1?w=800',
@@ -874,7 +874,7 @@ export const dummyProducts = [
     description: 'High-traffic retail space in popular shopping district.',
     category: 'commercial',
     price: 650000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1555529733-0e670560f7e1?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -912,7 +912,7 @@ export const dummyProducts = [
     description: 'Large warehouse with loading docks and high ceilings for logistics.',
     category: 'commercial',
     price: 550000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -950,7 +950,7 @@ export const dummyProducts = [
     description: 'Modern co-working space with private offices and shared amenities.',
     category: 'commercial',
     price: 420000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -988,7 +988,7 @@ export const dummyProducts = [
     description: 'Fully equipped restaurant space with kitchen and dining area.',
     category: 'commercial',
     price: 780000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -1026,7 +1026,7 @@ export const dummyProducts = [
     description: 'Professional medical office space with exam rooms and waiting area.',
     category: 'commercial',
     price: 620000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -1064,7 +1064,7 @@ export const dummyProducts = [
     description: 'Large open space perfect for gym or fitness studio with high ceilings.',
     category: 'commercial',
     price: 580000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -1102,7 +1102,7 @@ export const dummyProducts = [
     description: 'Elegant gallery space with high ceilings and professional lighting.',
     category: 'commercial',
     price: 590000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -1140,7 +1140,7 @@ export const dummyProducts = [
     description: 'Fully equipped auto service center with lifts and workshop area.',
     category: 'commercial',
     price: 480000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
@@ -1178,7 +1178,7 @@ export const dummyProducts = [
     description: 'Modern open-plan office space designed for tech startups and creative teams.',
     category: 'commercial',
     price: 950000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
       'https://images.unsplash.com/photo-1555529733-0e670560f7e1?w=800',
@@ -1217,7 +1217,7 @@ export const dummyProducts = [
     description: 'Prime residential lot in established neighborhood with utilities.',
     category: 'land',
     price: 150000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1255,7 +1255,7 @@ export const dummyProducts = [
     description: 'Large parcel zoned for commercial development near major highway.',
     category: 'land',
     price: 450000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1293,7 +1293,7 @@ export const dummyProducts = [
     description: 'Stunning beachfront parcel with ocean access and development potential.',
     category: 'land',
     price: 890000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1331,7 +1331,7 @@ export const dummyProducts = [
     description: 'Scenic mountain land with panoramic views and access to hiking trails.',
     category: 'land',
     price: 320000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1369,7 +1369,7 @@ export const dummyProducts = [
     description: 'Beautiful lakefront property with private dock access and water views.',
     category: 'land',
     price: 550000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1407,7 +1407,7 @@ export const dummyProducts = [
     description: 'Expansive ranch land suitable for livestock and equestrian activities.',
     category: 'land',
     price: 680000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1445,7 +1445,7 @@ export const dummyProducts = [
     description: 'Private island land with pristine beaches and tropical surroundings.',
     category: 'land',
     price: 2500000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1483,7 +1483,7 @@ export const dummyProducts = [
     description: 'Land parcel approved for subdivision development in growing area.',
     category: 'land',
     price: 380000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1521,7 +1521,7 @@ export const dummyProducts = [
     description: 'Agricultural land with fertile soil and water access for farming.',
     category: 'land',
     price: 280000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1559,7 +1559,7 @@ export const dummyProducts = [
     description: 'Forest land with timber value and recreational opportunities.',
     category: 'land',
     price: 220000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
@@ -1598,7 +1598,7 @@ export const dummyProducts = [
     description: 'Creative studio space with high ceilings and natural light.',
     category: 'studio',
     price: 85000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
       'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',
@@ -1636,7 +1636,7 @@ export const dummyProducts = [
     description: 'Soundproofed music studio with recording equipment.',
     category: 'studio',
     price: 120000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1674,7 +1674,7 @@ export const dummyProducts = [
     description: 'Professional photography studio with lighting equipment and backdrops.',
     category: 'studio',
     price: 95000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1547153760-18fc86324498?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1712,7 +1712,7 @@ export const dummyProducts = [
     description: 'Spacious dance studio with mirrored walls and sprung flooring.',
     category: 'studio',
     price: 78000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1750,7 +1750,7 @@ export const dummyProducts = [
     description: 'Peaceful yoga studio with natural light and calming atmosphere.',
     category: 'studio',
     price: 78000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800',
     ],
@@ -1779,7 +1779,7 @@ export const dummyProducts = [
     description: 'Artistic pottery studio with kiln and workbenches for ceramics.',
     category: 'studio',
     price: 72000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1817,7 +1817,7 @@ export const dummyProducts = [
     description: 'Professional film studio with green screen and production equipment.',
     category: 'studio',
     price: 180000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1855,7 +1855,7 @@ export const dummyProducts = [
     description: 'Modern design studio for creative professionals and freelancers.',
     category: 'studio',
     price: 110000,
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     images: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
       'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',
@@ -1893,7 +1893,7 @@ export const dummyProducts = [
     description: 'Private fitness studio with equipment for personal training.',
     category: 'studio',
     price: 92000,
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     images: [
       'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1931,7 +1931,7 @@ export const dummyProducts = [
     description: 'Quiet writing studio with desk space and peaceful environment.',
     category: 'studio',
     price: 58000,
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     images: [
       'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800',
@@ -1998,13 +1998,13 @@ export const dummyUsers = [
   },
 ];
 
-export const dummyVendors = [
+export const dummyOwners = [
   {
-    id: 'vendor_1',
+    id: 'owner_1',
     name: 'Premium Properties LLC',
     email: 'info@premiumproperties.com',
     phone: '+1987654321',
-    role: 'vendor',
+    role: 'owner',
     avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200',
     businessLicense: 'BL-2024-001',
     status: 'approved',
@@ -2019,11 +2019,11 @@ export const dummyVendors = [
     createdAt: '2023-12-01T00:00:00Z',
   },
   {
-    id: 'vendor_2',
+    id: 'owner_2',
     name: 'Urban Spaces Real Estate',
     email: 'contact@urbanspaces.com',
     phone: '+1987654322',
-    role: 'vendor',
+    role: 'owner',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200',
     businessLicense: 'BL-2024-002',
     status: 'approved',
@@ -2038,11 +2038,11 @@ export const dummyVendors = [
     createdAt: '2023-12-15T00:00:00Z',
   },
   {
-    id: 'vendor_3',
+    id: 'owner_3',
     name: 'Coastal Living Properties',
     email: 'sales@coastalliving.com',
     phone: '+1987654323',
-    role: 'vendor',
+    role: 'owner',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200',
     businessLicense: 'BL-2024-003',
     status: 'pending',
@@ -2062,7 +2062,7 @@ export const dummyOrders = [
   {
     id: 'order_1',
     userId: 'user_1',
-    vendorId: 'vendor_1',
+    ownerId: 'owner_1',
     productId: 'prod_1',
     productName: 'Luxury Apartment in Downtown',
     productImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
@@ -2075,7 +2075,7 @@ export const dummyOrders = [
     updatedAt: '2024-02-15T14:30:00Z',
     tracking: [
       { status: 'pending', timestamp: '2024-02-01T10:00:00Z', message: 'Order placed' },
-      { status: 'confirmed', timestamp: '2024-02-02T09:00:00Z', message: 'Order confirmed by vendor' },
+      { status: 'confirmed', timestamp: '2024-02-02T09:00:00Z', message: 'Order confirmed by owner' },
       { status: 'processing', timestamp: '2024-02-05T11:00:00Z', message: 'Processing documents' },
       { status: 'completed', timestamp: '2024-02-15T14:30:00Z', message: 'Transaction completed' },
     ],
@@ -2083,7 +2083,7 @@ export const dummyOrders = [
   {
     id: 'order_2',
     userId: 'user_2',
-    vendorId: 'vendor_2',
+    ownerId: 'owner_2',
     productId: 'prod_3',
     productName: 'Cozy Studio Apartment',
     productImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
@@ -2096,14 +2096,14 @@ export const dummyOrders = [
     updatedAt: '2024-02-22T10:00:00Z',
     tracking: [
       { status: 'pending', timestamp: '2024-02-20T08:00:00Z', message: 'Order placed' },
-      { status: 'confirmed', timestamp: '2024-02-20T09:30:00Z', message: 'Order confirmed by vendor' },
+      { status: 'confirmed', timestamp: '2024-02-20T09:30:00Z', message: 'Order confirmed by owner' },
       { status: 'processing', timestamp: '2024-02-22T10:00:00Z', message: 'Processing documents' },
     ],
   },
   {
     id: 'order_3',
     userId: 'user_1',
-    vendorId: 'vendor_3',
+    ownerId: 'owner_3',
     productId: 'prod_5',
     productName: 'Beachfront Condo',
     productImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400',
@@ -2155,7 +2155,7 @@ export const dummyAnalytics = {
   totalRevenue: 21250000,
   totalOrders: 78,
   totalUsers: 156,
-  totalVendors: 12,
+  totalOwners: 12,
   monthlyRevenue: [
     { month: 'Jan', revenue: 3500000 },
     { month: 'Feb', revenue: 4200000 },

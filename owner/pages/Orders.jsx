@@ -3,7 +3,7 @@ import { Search, Filter, CheckCircle, XCircle, Clock, MoreVertical, Eye } from '
 import { authService, firestoreService } from '../../src/core/services/firebaseService';
 import { toast } from 'react-hot-toast';
 
-export default function VendorOrders() {
+export default function OwnerOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,7 +16,7 @@ export default function VendorOrders() {
       setLoading(false);
       return;
     }
-    const unsubscribe = firestoreService.subscribeToOrders({ vendorId: user.uid }, (data) => {
+    const unsubscribe = firestoreService.subscribeToOrders({ ownerId: user.uid }, (data) => {
       setOrders(data);
       setLoading(false);
     });

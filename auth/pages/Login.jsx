@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '@core/services/firebaseService';
 import { firestoreService } from '@core/services/firebaseService';
-import { dummyUsers, dummyVendors } from '@core/utils/dummyData';
+import { dummyUsers, dummyOwners } from '@core/utils/dummyData';
 import toast from 'react-hot-toast';
 import { Mail, Lock, Phone, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
@@ -18,17 +18,17 @@ const mockAuth = {
       return { uid: user.id, email: user.email, role: user.role };
     }
     
-    // Check against dummy vendors
-    const vendor = dummyVendors.find(v => v.email === email);
-    if (vendor) {
-      return { uid: vendor.id, email: vendor.email, role: vendor.role };
+    // Check against dummy owners
+    const owner = dummyOwners.find(v => v.email === email);
+    if (owner) {
+      return { uid: owner.id, email: owner.email, role: owner.role };
     }
     
     // For demo purposes, allow any login with role selection
     return { 
       uid: 'demo_user', 
       email: email, 
-      role: email.includes('admin') ? 'admin' : email.includes('vendor') ? 'vendor' : 'user' 
+      role: email.includes('admin') ? 'admin' : email.includes('owner') ? 'owner' : 'user' 
     };
   },
   
@@ -83,7 +83,7 @@ export default function Login() {
       }
 
       if (role && role !== 'user') {
-        const portal = role === 'admin' ? '/admin/login' : '/vendor/login';
+        const portal = role === 'admin' ? '/admin/login' : '/owner/login';
         throw new Error(`Access Denied: This portal is for standard users only. Please use the ${role} portal.`);
       }
 
@@ -289,10 +289,10 @@ export default function Login() {
             </p>
             <div className="flex items-center justify-center space-x-6">
               <button 
-                onClick={() => navigate('/vendor/login')}
+                onClick={() => navigate('/owner/login')}
                 className="text-xs font-bold text-gray-400 hover:text-orange-600 transition-colors uppercase tracking-widest"
               >
-                Vendor Portal
+                Owner Portal
               </button>
               <div className="w-1 h-1 bg-gray-200 rounded-full"></div>
               <button 

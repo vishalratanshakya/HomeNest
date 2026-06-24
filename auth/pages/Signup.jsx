@@ -28,7 +28,7 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
     phone: '',
-    role: 'user', // 'user', 'vendor', 'admin'
+    role: 'user', // 'user', 'owner', 'admin'
   });
   const [loading, setLoading] = useState(false);
   const [method, setMethod] = useState('email'); // 'email' or 'phone'

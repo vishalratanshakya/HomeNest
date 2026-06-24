@@ -27,25 +27,25 @@ const UserMessages = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const chatEndRef = useRef(null);
   const [showMobileList, setShowMobileList] = useState(true);
-  const [vendorProfiles, setVendorProfiles] = useState({}); // { [vendorId]: { name, avatar } }
+  const [ownerProfiles, setOwnerProfiles] = useState({}); // { [ownerId]: { name, avatar } }
 
   const user = authService.getCurrentUser();
 
   useEffect(() => {
-    const uniqueVendorIds = [...new Set(conversations.map(c => c.vendorId).filter(Boolean))];
-    uniqueVendorIds.forEach(vendorId => {
-      if (!vendorProfiles[vendorId]) {
-        firestoreService.getUserDocument(vendorId).then(doc => {
+    const uniqueOwnerIds = [...new Set(conversations.map(c => c.ownerId).filter(Boolean))];
+    uniqueOwnerIds.forEach(ownerId => {
+      if (!ownerProfiles[ownerId]) {
+        firestoreService.getUserDocument(ownerId).then(doc => {
           if (doc) {
-            setVendorProfiles(prev => ({
+            setOwnerProfiles(prev => ({
               ...prev,
-              [vendorId]: {
+              [ownerId]: {
                 name: doc.fullName || doc.name || doc.displayName,
                 avatar: doc.profileImage || doc.photoURL
               }
             }));
           }
-        }).catch(err => console.error("Error fetching vendor profile:", err));
+        }).catch(err => console.error("Error fetching owner profile:", err));
       }
     });
   }, [conversations]);
@@ -108,11 +108,11 @@ const UserMessages = () => {
       };
 
       const convoData = {
-        vendorId: activeChat.vendorId,
-        vendorName: activeChat.vendorName,
-        vendorAvatar: activeChat.vendorAvatar,
-        vendorPhone: activeChat.vendorPhone || '',
-        vendorEmail: activeChat.vendorEmail || '',
+        ownerId: activeChat.ownerId,
+        ownerName: activeChat.ownerName,
+        ownerAvatar: activeChat.ownerAvatar,
+        ownerPhone: activeChat.ownerPhone || '',
+        ownerEmail: activeChat.ownerEmail || '',
         userId: user.uid,
         propertyId: activeChat.propertyId,
         propertyName: activeChat.property,
@@ -150,16 +150,16 @@ const UserMessages = () => {
   };
 
   const handleCall = () => {
-    if (activeChat?.vendorPhone) {
-      window.location.href = `tel:${activeChat.vendorPhone}`;
+    if (activeChat?.ownerPhone) {
+      window.location.href = `tel:${activeChat.ownerPhone}`;
     } else {
       toast.error("Phone number not available");
     }
   };
 
   const handleEmail = () => {
-    if (activeChat?.vendorEmail) {
-      window.location.href = `mailto:${activeChat.vendorEmail}`;
+    if (activeChat?.ownerEmail) {
+      window.location.href = `mailto:${activeChat.ownerEmail}`;
     } else {
       toast.error("Email address not available");
     }
@@ -168,7 +168,7 @@ const UserMessages = () => {
   const activeChat = conversations.find(c => c.id === activeId);
 
   const filteredConversations = conversations.filter(c => {
-    const vName = c.vendorName || "Vendor";
+    const vName = c.ownerName || "Owner";
     const property = c.property || "Property";
     return vName.toLowerCase().includes(searchQuery.toLowerCase()) || 
            property.toLowerCase().includes(searchQuery.toLowerCase());
@@ -206,7 +206,7 @@ const UserMessages = () => {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                     <input 
                       type="text" 
-                      placeholder="Search vendor or property..."
+                      placeholder="Search owner or property..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-none rounded-2xl text-xs font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-600/10 outline-none transition-all"
@@ -224,9 +224,9 @@ const UserMessages = () => {
                     </div>
                   ) : (
                     filteredConversations.map((chat) => {
-                      const vProfile = vendorProfiles[chat.vendorId];
-                      const displayVendorName = vProfile?.name || chat.vendorName || "Agent";
-                      const displayVendorAvatar = vProfile?.avatar || chat.vendorAvatar || `https://i.pravatar.cc/150?u=${chat.vendorId}`;
+                      const vProfile = ownerProfiles[chat.ownerId];
+                      const displayOwnerName = vProfile?.name || chat.ownerName || "Agent";
+                      const displayOwnerAvatar = vProfile?.avatar || chat.ownerAvatar || `https://i.pravatar.cc/150?u=${chat.ownerId}`;
                       
                       return (
                         <button
@@ -238,7 +238,7 @@ const UserMessages = () => {
                         >
                           <div className="relative shrink-0">
                             <img 
-                              src={displayVendorAvatar} 
+                              src={displayOwnerAvatar} 
                               alt="" 
                               className="w-14 h-14 rounded-2xl object-cover shadow-md border-2 border-white group-hover:border-blue-600 transition-all" 
                             />
@@ -247,7 +247,7 @@ const UserMessages = () => {
                           <div className="flex-1 min-w-0 text-left">
                             <div className="flex justify-between items-center mb-1">
                               <h3 className="text-sm font-black text-slate-900 truncate uppercase tracking-tight">
-                                {displayVendorName}
+                                {displayOwnerName}
                               </h3>
                             <span className="text-[9px] font-black text-slate-400 uppercase">
                               {chat.updatedAt?.seconds 
@@ -298,13 +298,13 @@ const UserMessages = () => {
                       {activeChat ? (
                         <>
                           <img 
-                            src={vendorProfiles[activeChat.vendorId]?.avatar || activeChat.vendorAvatar || `https://i.pravatar.cc/150?u=${activeChat.vendorId}`} 
+                            src={ownerProfiles[activeChat.ownerId]?.avatar || activeChat.ownerAvatar || `https://i.pravatar.cc/150?u=${activeChat.ownerId}`} 
                             alt="" 
                             className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover shadow-lg border border-slate-100" 
                           />
                           <div>
                             <h3 className="text-base font-black text-slate-900 uppercase tracking-tight leading-tight">
-                              {vendorProfiles[activeChat.vendorId]?.name || activeChat.vendorName || "Property Agent"}
+                              {ownerProfiles[activeChat.ownerId]?.name || activeChat.ownerName || "Property Agent"}
                             </h3>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-[8px] font-black uppercase tracking-widest">Online</span>
@@ -439,7 +439,7 @@ const UserMessages = () => {
                         <MessageSquare className="w-8 h-8 text-blue-600" />
                       </div>
                       <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight">Select a conversation</h3>
-                      <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">Choose a vendor to start chatting about properties</p>
+                      <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">Choose a owner to start chatting about properties</p>
                       
                       {!showMobileList && (
                         <button 

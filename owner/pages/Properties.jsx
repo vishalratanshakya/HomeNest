@@ -22,8 +22,8 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import toast from 'react-hot-toast';
 import { firestoreService, authService } from '../../src/core/services/firebaseService';
 import { cloudinaryService } from '../../src/core/services/cloudinaryService';
@@ -53,7 +53,7 @@ export default function Properties() {
         {},
         (data) => {
           const filtered = data.filter(
-            (p) => p.vendorId === user.uid
+            (p) => p.ownerId === user.uid
           );
           setProperties(filtered);
           setLoading(false);
@@ -110,9 +110,9 @@ export default function Properties() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="px-4 sm:px-10 py-6">
           <div className="flex flex-row justify-between items-center gap-4 mb-8">
@@ -123,7 +123,7 @@ export default function Properties() {
               </p>
             </div>
             <button 
-              onClick={() => navigate('/vendor/add-property')}
+              onClick={() => navigate('/owner/add-property')}
               className="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-xs flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 whitespace-nowrap"
             >
               <Plus className="w-4 h-4" />
@@ -331,7 +331,7 @@ export default function Properties() {
 
                   <div className="flex gap-3">
                     <button 
-                      onClick={() => navigate(`/vendor/edit-property/${property.id}`)}
+                      onClick={() => navigate(`/owner/edit-property/${property.id}`)}
                       className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100"
                     >
                       <Pencil className="w-4 h-4" />

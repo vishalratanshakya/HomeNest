@@ -5,7 +5,7 @@ import { authService, firestoreService } from '@core/services/firebaseService';
 import toast from 'react-hot-toast';
 import { Upload, X, Plus, Save, ArrowLeft } from 'lucide-react';
 
-export default function VendorAddProduct() {
+export default function OwnerAddProduct() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -70,7 +70,7 @@ export default function VendorAddProduct() {
         description: formData.description,
         category: formData.category,
         price: parseFloat(formData.price),
-        vendorId: authService.getCurrentUser()?.uid || JSON.parse(sessionStorage.getItem('currentUser'))?.uid || 'anonymous',
+        ownerId: authService.getCurrentUser()?.uid || JSON.parse(sessionStorage.getItem('currentUser'))?.uid || 'anonymous',
         images: images.map(img => img.url),
         location: formData.location,
         specifications: {
@@ -87,7 +87,7 @@ export default function VendorAddProduct() {
 
       await firestoreService.createProduct(productData);
       toast.success('Product created successfully');
-      navigate('/vendor/products');
+      navigate('/owner/products');
     } catch (error) {
       toast.error('Failed to create product');
     } finally {
@@ -123,7 +123,7 @@ export default function VendorAddProduct() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button
-                onClick={() => navigate('/vendor/dashboard')}
+                onClick={() => navigate('/owner/dashboard')}
                 className="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-all"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -411,7 +411,7 @@ export default function VendorAddProduct() {
           <div className="flex justify-end space-x-4">
             <button
               type="button"
-              onClick={() => navigate('/vendor/dashboard')}
+              onClick={() => navigate('/owner/dashboard')}
               className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
             >
               Cancel

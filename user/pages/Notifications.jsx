@@ -72,7 +72,7 @@ export default function UserNotifications() {
         return '📦';
       case 'promotion':
         return '🎉';
-      case 'vendor':
+      case 'owner':
         return '🏪';
       case 'admin':
         return '📢';

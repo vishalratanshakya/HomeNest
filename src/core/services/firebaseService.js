@@ -382,12 +382,12 @@ export const firestoreService = {
         updatedAt: serverTimestamp(),
       });
 
-      // Notification: Vendor created property -> Notify Admin
+      // Notification: Owner created property -> Notify Admin
       try {
         await notificationService.createNotification({
           userId: 'admin',
           title: 'New Property Listing',
-          message: `A new property "${propertyData.title}" has been listed by ${propertyData.vendorName || 'a vendor'}.`,
+          message: `A new property "${propertyData.title}" has been listed by ${propertyData.ownerName || 'a owner'}.`,
           type: 'property_created',
           propertyId: docRef.id
         });
@@ -409,8 +409,8 @@ export const firestoreService = {
     try {
       let q = collection(db, 'properties');
       
-      if (filters.vendorId) {
-        q = query(q, where('vendorId', '==', filters.vendorId));
+      if (filters.ownerId) {
+        q = query(q, where('ownerId', '==', filters.ownerId));
       }
       
       if (filters.category) {
@@ -531,8 +531,8 @@ export const firestoreService = {
         q = query(q, where('userId', '==', filters.userId));
       }
       
-      if (filters.vendorId) {
-        q = query(q, where('vendorId', '==', filters.vendorId));
+      if (filters.ownerId) {
+        q = query(q, where('ownerId', '==', filters.ownerId));
       }
       
       if (filters.status) {
@@ -596,8 +596,8 @@ export const firestoreService = {
       q = query(q, where('userId', '==', filters.userId));
     }
     
-    if (filters.vendorId) {
-      q = query(q, where('vendorId', '==', filters.vendorId));
+    if (filters.ownerId) {
+      q = query(q, where('ownerId', '==', filters.ownerId));
     }
     
     // Removed server-side orderBy to avoid index errors
@@ -625,8 +625,8 @@ export const firestoreService = {
     }
     let q = collection(db, 'properties');
     
-    if (filters.vendorId) {
-      q = query(q, where('vendorId', '==', filters.vendorId));
+    if (filters.ownerId) {
+      q = query(q, where('ownerId', '==', filters.ownerId));
     }
     
     if (filters.category) {
@@ -653,14 +653,14 @@ export const firestoreService = {
     return unsubscribe;
   },
 
-  // Vendor Operations
-  getVendors: async (filters = {}) => {
+  // Owner Operations
+  getOwners: async (filters = {}) => {
     if (!isFirebaseConfigured) {
       console.warn('Firebase not configured - use dummy data instead');
       return [];
     }
     try {
-      let q = collection(db, 'vendors');
+      let q = collection(db, 'owners');
       
       if (filters.status) {
         q = query(q, where('status', '==', filters.status));
@@ -673,14 +673,14 @@ export const firestoreService = {
     }
   },
 
-  updateVendor: async (vendorId, vendorData) => {
+  updateOwner: async (ownerId, ownerData) => {
     if (!isFirebaseConfigured) {
       console.warn('Firebase not configured - skipping Firestore operation');
       return true;
     }
     try {
-      await updateDoc(doc(db, 'vendors', vendorId), {
-        ...vendorData,
+      await updateDoc(doc(db, 'owners', ownerId), {
+        ...ownerData,
         updatedAt: serverTimestamp(),
       });
       return true;
@@ -689,13 +689,13 @@ export const firestoreService = {
     }
   },
 
-  deleteVendor: async (vendorId) => {
+  deleteOwner: async (ownerId) => {
     if (!isFirebaseConfigured) {
       console.warn('Firebase not configured - skipping Firestore operation');
       return true;
     }
     try {
-      await deleteDoc(doc(db, 'vendors', vendorId));
+      await deleteDoc(doc(db, 'owners', ownerId));
       return true;
     } catch (error) {
       throw error;
@@ -771,7 +771,7 @@ export const firestoreService = {
     try {
       const q = query(
         collection(db, 'conversations'),
-        where('vendorId', '==', filters.vendorId)
+        where('ownerId', '==', filters.ownerId)
       );
 
       return onSnapshot(q, (snapshot) => {
@@ -834,9 +834,9 @@ export const firestoreService = {
 
     try {
       const {
-        vendorId,
-        vendorName,
-        vendorAvatar,
+        ownerId,
+        ownerName,
+        ownerAvatar,
         userId,
         propertyId,
         propertyName,
@@ -847,27 +847,27 @@ export const firestoreService = {
 
       const convosQuery = query(
         collection(db, 'conversations'),
-        where('vendorId', '==', vendorId),
+        where('ownerId', '==', ownerId),
         where('userId', '==', userId),
         where('propertyId', '==', propertyId)
       );
 
       const convoSnapshot = await getDocs(convosQuery);
       let conversationId;
-      let unreadForVendor = 0;
+      let unreadForOwner = 0;
       let unreadForUser = 0;
       const sender = messageData.sender;
 
       if (convoSnapshot.empty) {
-        unreadForVendor = sender === 'user' ? 1 : 0;
-        unreadForUser = sender === 'vendor' ? 1 : 0;
+        unreadForOwner = sender === 'user' ? 1 : 0;
+        unreadForUser = sender === 'owner' ? 1 : 0;
 
         const convoRef = await addDoc(collection(db, 'conversations'), {
-          vendorId,
-          vendorName: vendorName || 'Property Vendor',
-          vendorAvatar: vendorAvatar || 'https://i.pravatar.cc/150?u=' + vendorId,
-          vendorPhone: conversationData.vendorPhone || '',
-          vendorEmail: conversationData.vendorEmail || '',
+          ownerId,
+          ownerName: ownerName || 'Property Owner',
+          ownerAvatar: ownerAvatar || 'https://i.pravatar.cc/150?u=' + ownerId,
+          ownerPhone: conversationData.ownerPhone || '',
+          ownerEmail: conversationData.ownerEmail || '',
           userId,
           propertyId,
           property: propertyName,
@@ -875,9 +875,9 @@ export const firestoreService = {
           name: userName,
           avatar: userAvatar || 'https://i.pravatar.cc/150?u=' + userId,
           status: 'online',
-          unreadForVendor,
+          unreadForOwner,
           unreadForUser,
-          unread: unreadForVendor + unreadForUser,
+          unread: unreadForOwner + unreadForUser,
           lastMessage: messageData.text,
           lastSender: sender,
           createdAt: serverTimestamp(),
@@ -887,14 +887,14 @@ export const firestoreService = {
       } else {
         conversationId = convoSnapshot.docs[0].id;
         const existing = convoSnapshot.docs[0].data();
-        const existingUnreadForVendor = existing.unreadForVendor ?? (existing.unread && existing.lastSender !== 'vendor' ? existing.unread : 0);
-        const existingUnreadForUser = existing.unreadForUser ?? (existing.unread && existing.lastSender === 'vendor' ? existing.unread : 0);
+        const existingUnreadForOwner = existing.unreadForOwner ?? (existing.unread && existing.lastSender !== 'owner' ? existing.unread : 0);
+        const existingUnreadForUser = existing.unreadForUser ?? (existing.unread && existing.lastSender === 'owner' ? existing.unread : 0);
 
         if (sender === 'user') {
-          unreadForVendor = existingUnreadForVendor + 1;
+          unreadForOwner = existingUnreadForOwner + 1;
           unreadForUser = 0;
         } else {
-          unreadForVendor = 0;
+          unreadForOwner = 0;
           unreadForUser = existingUnreadForUser + 1;
         }
 
@@ -902,9 +902,9 @@ export const firestoreService = {
           lastMessage: messageData.text,
           updatedAt: serverTimestamp(),
           lastSender: sender,
-          unreadForVendor,
+          unreadForOwner,
           unreadForUser,
-          unread: unreadForVendor + unreadForUser
+          unread: unreadForOwner + unreadForUser
         });
       }
 
@@ -928,16 +928,16 @@ export const firestoreService = {
       if (!convoSnap.exists()) return;
 
       const data = convoSnap.data();
-      const existingUnreadForVendor = data.unreadForVendor ?? (data.unread && data.lastSender !== 'vendor' ? data.unread : 0);
-      const existingUnreadForUser = data.unreadForUser ?? (data.unread && data.lastSender === 'vendor' ? data.unread : 0);
+      const existingUnreadForOwner = data.unreadForOwner ?? (data.unread && data.lastSender !== 'owner' ? data.unread : 0);
+      const existingUnreadForUser = data.unreadForUser ?? (data.unread && data.lastSender === 'owner' ? data.unread : 0);
       const updated = {};
 
-      if (role === 'vendor') {
-        updated.unreadForVendor = 0;
+      if (role === 'owner') {
+        updated.unreadForOwner = 0;
         updated.unread = existingUnreadForUser;
       } else {
         updated.unreadForUser = 0;
-        updated.unread = existingUnreadForVendor;
+        updated.unread = existingUnreadForOwner;
       }
 
       await updateDoc(convoRef, updated);
@@ -1162,11 +1162,11 @@ export const bookingService = {
         paymentStatus: 'pending'
       });
 
-      // Notification: New booking -> Notify Vendor
+      // Notification: New booking -> Notify Owner
       try {
-        if (sanitizedData.vendorId) {
+        if (sanitizedData.ownerId) {
           await notificationService.createNotification({
-            userId: sanitizedData.vendorId,
+            userId: sanitizedData.ownerId,
             title: 'New Booking Received',
             message: `You have received a new booking for "${sanitizedData.propertyName || 'your property'}".`,
             type: 'new_booking',
@@ -1188,7 +1188,7 @@ export const bookingService = {
           await notificationService.createNotification({
             userId: sanitizedData.userId,
             title: 'Booking Request Submitted',
-            message: `Your booking request for "${sanitizedData.propertyName || 'the property'}" has been received. The vendor will confirm soon.`,
+            message: `Your booking request for "${sanitizedData.propertyName || 'the property'}" has been received. The owner will confirm soon.`,
             type: 'booking_request',
             data: { bookingId: bookingRef.id }
           });
@@ -1280,19 +1280,19 @@ export const bookingService = {
     }
   },
 
-  // Get bookings for a specific vendor
-  getVendorBookings: (vendorId, callback) => {
+  // Get bookings for a specific owner
+  getOwnerBookings: (ownerId, callback) => {
     if (!isFirebaseConfigured) {
       // Mock implementation for demo mode
       const allBookings = JSON.parse(sessionStorage.getItem('bookings') || '[]');
-      const vendorBookings = allBookings.filter(booking => booking.vendorId === vendorId);
-      callback(vendorBookings);
+      const ownerBookings = allBookings.filter(booking => booking.ownerId === ownerId);
+      callback(ownerBookings);
       return () => {}; // Return unsubscribe function
     }
 
     const q = query(
       collection(db, 'bookings'), 
-      where('vendorId', '==', vendorId)
+      where('ownerId', '==', ownerId)
     );
     return onSnapshot(q, (snapshot) => {
       const bookings = snapshot.docs
@@ -1307,7 +1307,7 @@ export const bookingService = {
         });
       callback(bookings);
     }, (error) => {
-      console.error('Error in getVendorBookings snapshot:', error);
+      console.error('Error in getOwnerBookings snapshot:', error);
       callback([]);
     });
   },
@@ -1448,20 +1448,20 @@ export const bookingService = {
     }
   },
 
-  // Get reviews for a specific vendor
+  // Get reviews for a specific owner
   subscribeToReviews: (filters, callback, onError) => {
     if (!isFirebaseConfigured || !db) {
       const allReviews = JSON.parse(sessionStorage.getItem('reviews') || '[]');
-      const vendorReviews = filters.vendorId 
-        ? allReviews.filter(review => review.vendorId === filters.vendorId)
+      const ownerReviews = filters.ownerId 
+        ? allReviews.filter(review => review.ownerId === filters.ownerId)
         : allReviews;
-      callback(vendorReviews);
+      callback(ownerReviews);
       return () => {};
     }
 
     let q = collection(db, 'reviews');
-    if (filters.vendorId) {
-      q = query(q, where('vendorId', '==', filters.vendorId));
+    if (filters.ownerId) {
+      q = query(q, where('ownerId', '==', filters.ownerId));
     }
 
     return onSnapshot(q, (snapshot) => {

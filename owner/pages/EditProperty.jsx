@@ -44,8 +44,8 @@ import {
   Save
 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import LocationSelector from '../components/LocationSelector';
 import toast from 'react-hot-toast';
 import { firestoreService, cloudinaryService, authService } from '@core/services/firebaseService';
@@ -147,15 +147,15 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
             availableNow: data.availableNow || false,
             propertyStatus: data.propertyStatus || 'Ready to Move',
             amenities: data.amenities || [],
-            contactName: data.vendorName || data.contactName || '',
-            contactPhone: data.vendorPhone || data.contactPhone || '',
+            contactName: data.ownerName || data.contactName || '',
+            contactPhone: data.ownerPhone || data.contactPhone || '',
             contactEmail: data.contactEmail || ''
           });
           setMainImage(data.mainImage || '');
           setSubImages(data.subImages || data.images?.slice(1) || []);
         } else {
           toast.error('Property not found');
-          navigate('/vendor/properties');
+          navigate('/owner/properties');
         }
       } catch (error) {
         console.error('Error loading property:', error);
@@ -321,9 +321,9 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
 
     return (
       <div className="flex min-h-screen bg-gray-100">
-        <VendorSidebar />
+        <OwnerSidebar />
         <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-gray-50/50 transition-all duration-300 w-full overflow-x-hidden">
-          <VendorHeader />
+          <OwnerHeader />
           {loadingUI}
         </main>
       </div>
@@ -336,7 +336,7 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
       <div className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => hideLayout ? navigate(-1) : navigate('/vendor/properties')}
+            onClick={() => hideLayout ? navigate(-1) : navigate('/owner/properties')}
             className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-gray-100 hover:bg-gray-50 transition-all group shrink-0"
           >
             <ArrowLeft className="w-5 h-5 text-gray-400 group-hover:text-indigo-600 group-hover:-translate-x-1 transition-all" />
@@ -924,7 +924,7 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
         <div className="flex justify-end gap-4">
           <button 
             type="button"
-            onClick={() => hideLayout ? navigate(-1) : navigate('/vendor/properties')}
+            onClick={() => hideLayout ? navigate(-1) : navigate('/owner/properties')}
             className="btn-secondary"
           >
             Cancel
@@ -957,7 +957,7 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
-              onClick={() => hideLayout ? navigate(-1) : navigate('/vendor/properties')}
+              onClick={() => hideLayout ? navigate(-1) : navigate('/owner/properties')}
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -972,7 +972,7 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
               <p className="text-slate-500 font-medium mb-10">Your property details have been successfully updated.</p>
               
               <button 
-                onClick={() => hideLayout ? navigate(-1) : navigate('/vendor/properties')}
+                onClick={() => hideLayout ? navigate(-1) : navigate('/owner/properties')}
                 className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold text-sm tracking-tight hover:bg-indigo-700 transition-all shadow-lg"
               >
                 {hideLayout ? 'Back to Dashboard' : 'Back to Properties'}
@@ -988,9 +988,9 @@ export default function EditProperty({ hideLayout: propHideLayout = false }) {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-gray-50/50 transition-all duration-300 w-full overflow-x-hidden">
-        <VendorHeader />
+        <OwnerHeader />
         {content}
       </main>
     </div>

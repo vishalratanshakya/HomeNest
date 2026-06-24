@@ -197,7 +197,7 @@ const AdminOrders = () => {
                           <div className="w-6 h-6 bg-amber-50 rounded-lg flex items-center justify-center">
                             <Building2 className="w-3 h-3 text-amber-600" />
                           </div>
-                          <span className="text-xs font-bold text-gray-500">{booking.vendorName || 'Independent'}</span>
+                          <span className="text-xs font-bold text-gray-500">{booking.ownerName || 'Independent'}</span>
                         </div>
                       </div>
                     </td>

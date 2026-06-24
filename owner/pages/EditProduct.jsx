@@ -6,7 +6,7 @@ import { firestoreService } from '@core/services/firebaseService';
 import toast from 'react-hot-toast';
 import { Upload, X, Save, ArrowLeft } from 'lucide-react';
 
-export default function VendorEditProduct() {
+export default function OwnerEditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ export default function VendorEditProduct() {
           setImages(product.images.map(url => ({ url })));
         } else {
           toast.error('Product not found');
-          navigate('/vendor/products');
+          navigate('/owner/products');
         }
       } catch (error) {
         toast.error('Failed to load product');
@@ -118,7 +118,7 @@ export default function VendorEditProduct() {
 
       await firestoreService.updateProduct(id, productData);
       toast.success('Product updated successfully');
-      navigate('/vendor/products');
+      navigate('/owner/products');
     } catch (error) {
       toast.error('Failed to update product');
     } finally {
@@ -153,7 +153,7 @@ export default function VendorEditProduct() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button
-                onClick={() => navigate('/vendor/products')}
+                onClick={() => navigate('/owner/products')}
                 className="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-all"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -403,7 +403,7 @@ export default function VendorEditProduct() {
           <div className="flex justify-end space-x-4">
             <button
               type="button"
-              onClick={() => navigate('/vendor/products')}
+              onClick={() => navigate('/owner/products')}
               className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
             >
               Cancel

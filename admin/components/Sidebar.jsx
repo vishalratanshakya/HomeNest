@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         { name: 'Rent Properties', path: '/admin/rent-properties' },
       ]
     },
-    { name: 'Vendors', icon: UserSquare2, path: '/admin/vendors' },
+    { name: 'Owners', icon: UserSquare2, path: '/admin/owners' },
     { name: 'Users', icon: Users, path: '/admin/users' },
     { name: 'Property Visits', icon: CalendarCheck, path: '/admin/orders' },
     { name: 'Payments', icon: CreditCard, path: '/admin/payments' },

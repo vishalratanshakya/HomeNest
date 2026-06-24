@@ -327,9 +327,9 @@ export default function BuyPage() {
                           </div>
                         </div>
 
-                        {item.vendorName && (
+                        {item.ownerName && (
                           <div className="text-[10px] font-extrabold text-blue-600 mb-1.5 uppercase tracking-widest">
-                            By {item.vendorName}
+                            By {item.ownerName}
                           </div>
                         )}
 

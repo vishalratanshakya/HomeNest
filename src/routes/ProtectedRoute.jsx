@@ -29,8 +29,8 @@ export default function ProtectedRoute({ children, allowedRoles }) {
         let loginPath = '/auth/login';
         if (window.location.pathname.startsWith('/admin')) {
           loginPath = '/admin/login';
-        } else if (window.location.pathname.startsWith('/vendor')) {
-          loginPath = '/vendor/login';
+        } else if (window.location.pathname.startsWith('/owner')) {
+          loginPath = '/owner/login';
         }
         
         navigate(loginPath);

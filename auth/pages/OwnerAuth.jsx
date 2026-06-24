@@ -1,11 +1,11 @@
-// Vendor Authentication Page
+// Owner Authentication Page
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService, firestoreService } from '@core/services/firebaseService';
 import toast from 'react-hot-toast';
 import { Mail, Lock, Eye, EyeOff, Store, ArrowRight, Building, MapPin, Briefcase } from 'lucide-react';
 
-export default function VendorAuth() {
+export default function OwnerAuth() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -27,8 +27,8 @@ export default function VendorAuth() {
       if (user) {
         const userDoc = await firestoreService.getUserDocument(user.uid);
         const role = userDoc?.role || user?.role;
-        if (role === 'vendor' || role === 'agent') {
-          navigate('/vendor/dashboard');
+        if (role === 'owner' || role === 'agent') {
+          navigate('/owner/dashboard');
         }
       }
     };
@@ -52,28 +52,28 @@ export default function VendorAuth() {
         await firestoreService.createUserDocument(user.uid, {
           name: user.displayName || formData.email.split('@')[0],
           email: user.email,
-          role: 'vendor',
+          role: 'owner',
           createdAt: new Date().toISOString(), // Keeping consistent with current schema
         });
-        userDoc = { role: 'vendor' };
+        userDoc = { role: 'owner' };
       }
 
-      const role = userDoc?.role || 'vendor';
+      const role = userDoc?.role || 'owner';
 
-      if (role !== 'vendor' && role !== 'agent') {
+      if (role !== 'owner' && role !== 'agent') {
         throw new Error(`Please use the ${role} portal to login.`);
       }
 
       sessionStorage.setItem('currentUser', JSON.stringify({
         uid: user.uid,
         email: user.email,
-        role: 'vendor',
-        displayName: userDoc?.displayName || userDoc?.name || user.displayName || 'Vendor',
+        role: 'owner',
+        displayName: userDoc?.displayName || userDoc?.name || user.displayName || 'Owner',
         photoURL: userDoc?.photoURL || user.photoURL || null
       }));
 
-      navigate('/vendor/dashboard');
-      toast.success('Vendor Dashboard access granted');
+      navigate('/owner/dashboard');
+      toast.success('Owner Dashboard access granted');
     } catch (error) {
       if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
         setErrorMsg('Invalid email or password.');
@@ -96,7 +96,7 @@ export default function VendorAuth() {
       await firestoreService.createUserDocument(user.uid, {
         name: formData.name,
         email: formData.email,
-        role: 'vendor',
+        role: 'owner',
         createdAt: new Date().toISOString(),
       });
 
@@ -104,7 +104,7 @@ export default function VendorAuth() {
 
       setIsLogin(true);
       setFormData({ name: '', email: '', password: '' });
-      toast.success('Vendor account created! Please log in.');
+      toast.success('Owner account created! Please log in.');
     } catch (error) {
       setErrorMsg(error.message || 'Signup failed');
       toast.error(error.message || 'Signup failed');
@@ -144,7 +144,7 @@ export default function VendorAuth() {
 
             <div className={`transition-all duration-500 ${animate ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
               <h2 className="text-3xl font-black text-white mb-4 leading-tight">
-                {isLogin ? 'Empower Your Real Estate Business' : 'Join the Elite Vendor Network'}
+                {isLogin ? 'Empower Your Real Estate Business' : 'Join the Elite Owner Network'}
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed mb-8">
                 {isLogin 
@@ -185,7 +185,7 @@ export default function VendorAuth() {
         <div className={`w-full md:w-7/12 p-8 md:p-12 flex flex-col justify-center transition-all duration-700 ${isLogin ? 'md:order-2' : 'md:order-1'} ${animate ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
           <div className="mb-8">
             <h1 className="text-3xl font-black text-white tracking-tight mb-2">
-              {isLogin ? 'Vendor Portal' : 'Create Agency Account'}
+              {isLogin ? 'Owner Portal' : 'Create Agency Account'}
             </h1>
             <p className="text-slate-400 text-sm">
               {isLogin ? 'Enter your credentials to access your dashboard' : 'Fill in the details below to get started'}
@@ -282,7 +282,7 @@ export default function VendorAuth() {
                 onClick={toggleAuth} 
                 className="text-amber-500 font-bold hover:text-amber-400 hover:underline transition-colors ml-1"
               >
-                {isLogin ? 'Apply as Vendor' : 'Sign in here'}
+                {isLogin ? 'Apply as Owner' : 'Sign in here'}
               </button>
             </p>
             

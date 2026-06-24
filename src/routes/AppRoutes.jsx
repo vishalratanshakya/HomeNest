@@ -5,14 +5,14 @@ import ProtectedRoute from './ProtectedRoute';
 // Auth Pages
 const UserAuth = lazy(() => import('../../auth/pages/UserAuth.jsx'));
 const AdminLogin = lazy(() => import('../../auth/pages/AdminLogin.jsx'));
-const VendorAuth = lazy(() => import('../../auth/pages/VendorAuth.jsx'));
+const OwnerAuth = lazy(() => import('../../auth/pages/OwnerAuth.jsx'));
 const OTP = lazy(() => import('../../auth/pages/OTP.jsx'));
 
 // Admin Pages
 const AdminLayout = lazy(() => import('@admin/components/AdminLayout'));
 const AdminDashboard = lazy(() => import('@admin/pages/Dashboard'));
 const AdminUsers = lazy(() => import('@admin/pages/Users'));
-const AdminVendors = lazy(() => import('@admin/pages/Vendors'));
+const AdminOwners = lazy(() => import('@admin/pages/Owners'));
 const AdminOrders = lazy(() => import('@admin/pages/Orders'));
 const AdminAnalytics = lazy(() => import('@admin/pages/Analytics'));
 const AdminSettings = lazy(() => import('@admin/pages/Settings'));
@@ -23,17 +23,17 @@ const AdminReviews = lazy(() => import('@admin/pages/Reviews'));
 const AdminReports = lazy(() => import('@admin/pages/Reports'));
 const AdminNotifications = lazy(() => import('@admin/pages/Notifications'));
 
-// Vendor Pages
-const VendorDashboard = lazy(() => import('@vendor/pages/Dashboard'));
-const VendorAddProperty = lazy(() => import('@vendor/pages/AddProperty'));
-const VendorEditProperty = lazy(() => import('@vendor/pages/EditProperty'));
-const VendorProperties = lazy(() => import('@vendor/pages/Properties'));
-const VendorBookings = lazy(() => import('@vendor/pages/Bookings'));
-const VendorEarnings = lazy(() => import('@vendor/pages/Earnings'));
-const VendorProfile = lazy(() => import('@vendor/pages/Profile'));
-const VendorReviews = lazy(() => import('@vendor/pages/Reviews'));
-const VendorMessages = lazy(() => import('@vendor/pages/Messages'));
-const VendorSettings = lazy(() => import('@vendor/pages/Settings'));
+// Owner Pages
+const OwnerDashboard = lazy(() => import('@owner/pages/Dashboard'));
+const OwnerAddProperty = lazy(() => import('@owner/pages/AddProperty'));
+const OwnerEditProperty = lazy(() => import('@owner/pages/EditProperty'));
+const OwnerProperties = lazy(() => import('@owner/pages/Properties'));
+const OwnerBookings = lazy(() => import('@owner/pages/Bookings'));
+const OwnerEarnings = lazy(() => import('@owner/pages/Earnings'));
+const OwnerProfile = lazy(() => import('@owner/pages/Profile'));
+const OwnerReviews = lazy(() => import('@owner/pages/Reviews'));
+const OwnerMessages = lazy(() => import('@owner/pages/Messages'));
+const OwnerSettings = lazy(() => import('@owner/pages/Settings'));
 
 // User Pages
 const UserHome = lazy(() => import('@user/pages/Home'));
@@ -59,11 +59,11 @@ const UserMessages = lazy(() => import('@user/pages/UserMessages'));
 const UserPurchaseProperty = lazy(() => import('@user/pages/PurchaseProperty'));
 const UserEditProfile = lazy(() => import('@user/pages/EditProfile'));
 const UserDashboardLayout = lazy(() => import('@user/components/UserDashboardLayout'));
-const VendorNotifications = lazy(() => import('@vendor/pages/Notifications'));
+const OwnerNotifications = lazy(() => import('@owner/pages/Notifications'));
 const UserBuyPropertyTracking = lazy(() => import('@user/pages/BuyPropertyTracking'));
 const UserBookedPropertyTracking = lazy(() => import('@user/pages/BookedPropertyTracking'));
-const VendorBuyPropertyTracking = lazy(() => import('@vendor/pages/BuyPropertyTracking'));
-const VendorBookedPropertyTracking = lazy(() => import('@vendor/pages/BookedPropertyTracking'));
+const OwnerBuyPropertyTracking = lazy(() => import('@owner/pages/BuyPropertyTracking'));
+const OwnerBookedPropertyTracking = lazy(() => import('@owner/pages/BookedPropertyTracking'));
 
 export default function AppRoutes() {
   return (
@@ -80,7 +80,7 @@ export default function AppRoutes() {
       <Route path="/auth/login" element={<UserAuth />} />
       <Route path="/auth/signup" element={<UserAuth />} />
       <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/vendor/login" element={<VendorAuth />} />
+      <Route path="/owner/login" element={<OwnerAuth />} />
       <Route path="/auth/otp" element={<OTP />} />
 
       {/* Admin Routes */}
@@ -95,7 +95,7 @@ export default function AppRoutes() {
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="users" element={<AdminUsers />} />
-        <Route path="vendors" element={<AdminVendors />} />
+        <Route path="owners" element={<AdminOwners />} />
         <Route path="properties" element={<AdminProperties />} />
         <Route path="add-property" element={<AdminAddProperty />} />
         <Route path="sell-properties" element={<AdminProperties type="sell" />} />
@@ -109,114 +109,114 @@ export default function AppRoutes() {
         <Route path="settings" element={<AdminSettings />} />
       </Route>
 
-      {/* Vendor Routes */}
+      {/* Owner Routes */}
       <Route
-        path="/vendor/dashboard"
+        path="/owner/dashboard"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorDashboard />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerDashboard />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/add-property"
+        path="/owner/add-property"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorAddProperty />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerAddProperty />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/edit-property/:id"
+        path="/owner/edit-property/:id"
         element={
-          <ProtectedRoute allowedRoles={['vendor', 'admin']}>
-            <VendorEditProperty />
+          <ProtectedRoute allowedRoles={['owner', 'admin']}>
+            <OwnerEditProperty />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/properties"
+        path="/owner/properties"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorProperties />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerProperties />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/bookings"
+        path="/owner/bookings"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorBookings />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerBookings />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/earnings"
+        path="/owner/earnings"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorEarnings />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerEarnings />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/reviews"
+        path="/owner/reviews"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorReviews />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerReviews />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/profile"
+        path="/owner/profile"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorProfile />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerProfile />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/messages"
+        path="/owner/messages"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorMessages />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerMessages />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/settings"
+        path="/owner/settings"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorSettings />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerSettings />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/notifications"
+        path="/owner/notifications"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorNotifications />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerNotifications />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/tracking/buy"
+        path="/owner/tracking/buy"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorBuyPropertyTracking />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerBuyPropertyTracking />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/vendor/tracking/book"
+        path="/owner/tracking/book"
         element={
-          <ProtectedRoute allowedRoles={['vendor']}>
-            <VendorBookedPropertyTracking />
+          <ProtectedRoute allowedRoles={['owner']}>
+            <OwnerBookedPropertyTracking />
           </ProtectedRoute>
         }
       />
       {/* Compatibility Aliases */}
-      <Route path="/vendor/products" element={<Navigate to="/vendor/properties" replace />} />
-      <Route path="/vendor/orders" element={<Navigate to="/vendor/bookings" replace />} />
+      <Route path="/owner/products" element={<Navigate to="/owner/properties" replace />} />
+      <Route path="/owner/orders" element={<Navigate to="/owner/bookings" replace />} />
 
       {/* User Routes */}
       <Route
@@ -262,7 +262,7 @@ export default function AppRoutes() {
       <Route
         path="/user/confirm-booking/:id"
         element={
-          <ProtectedRoute allowedRoles={['user', 'vendor', 'admin']}>
+          <ProtectedRoute allowedRoles={['user', 'owner', 'admin']}>
             <UserConfirmBooking />
           </ProtectedRoute>
         }
@@ -270,7 +270,7 @@ export default function AppRoutes() {
       <Route
         path="/user/purchase-property/:id"
         element={
-          <ProtectedRoute allowedRoles={['user', 'vendor', 'admin']}>
+          <ProtectedRoute allowedRoles={['user', 'owner', 'admin']}>
             <UserPurchaseProperty />
           </ProtectedRoute>
         }
@@ -278,7 +278,7 @@ export default function AppRoutes() {
       <Route
         path="/user/tracking/:orderId"
         element={
-          <ProtectedRoute allowedRoles={['user', 'vendor', 'admin']}>
+          <ProtectedRoute allowedRoles={['user', 'owner', 'admin']}>
             <UserOrderTracking />
           </ProtectedRoute>
         }
@@ -294,7 +294,7 @@ export default function AppRoutes() {
       <Route
         path="/user"
         element={
-          <ProtectedRoute allowedRoles={['user', 'vendor', 'admin']}>
+          <ProtectedRoute allowedRoles={['user', 'owner', 'admin']}>
             <UserDashboardLayout />
           </ProtectedRoute>
         }
@@ -324,7 +324,7 @@ export default function AppRoutes() {
         element={<UserContact />}
       />
 
-      <Route path="/vendor" element={<Navigate to="/vendor/dashboard" replace />} />
+      <Route path="/owner" element={<Navigate to="/owner/dashboard" replace />} />
       <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
       <Route path="/user" element={<Navigate to="/user/home" replace />} />
       {/* Catch all - redirect to home */}

@@ -15,7 +15,7 @@ export function QuickActions({ isLoading }) {
       desc: 'List a new property', 
       icon: Plus, 
       color: 'from-[#4F46E5] to-[#6366F1]', 
-      to: '/vendor/add-property'
+      to: '/owner/add-property'
     },
     { 
       title: 'Bulk Import', 
@@ -29,14 +29,14 @@ export function QuickActions({ isLoading }) {
       desc: 'View and edit listings', 
       icon: Home, 
       color: 'from-[#10B981] to-[#059669]', 
-      to: '/vendor/properties'
+      to: '/owner/properties'
     },
     { 
       title: 'View Bookings', 
       desc: 'Manage incoming bookings', 
       icon: CalendarRange, 
       color: 'from-[#F59E0B] to-[#D97706]', 
-      to: '/vendor/bookings'
+      to: '/owner/bookings'
     },
   ];
 
@@ -74,7 +74,7 @@ export function QuickActions({ isLoading }) {
       <BulkImportModal 
         isOpen={isBulkModalOpen} 
         onClose={() => setIsBulkModalOpen(false)} 
-        onSuccess={() => navigate('/vendor/properties')}
+        onSuccess={() => navigate('/owner/properties')}
       />
     </div>
   );
@@ -94,7 +94,7 @@ export function RecentProperties({ properties, isLoading }) {
     <div className="card">
       <div className="flex justify-between items-center mb-6">
         <h3 className="section-title mb-0">Recent Properties</h3>
-        <button onClick={() => navigate('/vendor/properties')} className="text-indigo-600 text-[10px] font-bold uppercase tracking-widest hover:underline">
+        <button onClick={() => navigate('/owner/properties')} className="text-indigo-600 text-[10px] font-bold uppercase tracking-widest hover:underline">
           View All
         </button>
       </div>
@@ -103,7 +103,7 @@ export function RecentProperties({ properties, isLoading }) {
         {properties.map((property, idx) => (
           <motion.div 
             key={idx} 
-            onClick={() => navigate('/vendor/properties')}
+            onClick={() => navigate('/owner/properties')}
             className="flex items-center gap-4 p-2 rounded-xl hover:bg-gray-50 transition-all cursor-pointer group"
           >
             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 shadow-sm border border-gray-100">

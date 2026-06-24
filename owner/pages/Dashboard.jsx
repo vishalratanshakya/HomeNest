@@ -8,15 +8,15 @@ import {
   Clock,
   LayoutGrid
 } from 'lucide-react';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import StatCard from '../components/StatCard';
 import { RevenueOverview, BookingOverview } from '../components/DashboardCharts';
 import RecentBookingsTable from '../components/RecentBookingsTable';
 import { QuickActions, RecentProperties } from '../components/DashboardPanels';
 import { firestoreService, bookingService, authService } from '../../src/core/services/firebaseService';
 
-export default function VendorDashboard() {
+export default function OwnerDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [properties, setProperties] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -41,14 +41,14 @@ export default function VendorDashboard() {
         {},
         (data) => {
           const filtered = data.filter(
-            (p) => p.vendorId === currentUser.uid
+            (p) => p.ownerId === currentUser.uid
           );
           setProperties(filtered);
         }
       );
 
       // Subscribe to Bookings
-      unsubscribeBookings = bookingService.getVendorBookings(
+      unsubscribeBookings = bookingService.getOwnerBookings(
         currentUser.uid,
         (data) => {
           setBookings(data);
@@ -142,24 +142,24 @@ export default function VendorDashboard() {
 
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
-      <VendorSidebar />
+      <OwnerSidebar />
       
       <main className="flex-1 w-full lg:ml-72 ml-0 flex flex-col h-screen overflow-y-auto transition-all duration-300 custom-scrollbar">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="p-2 sm:p-5 lg:p-10 space-y-6 md:space-y-10 w-full">
           {/* Stat Cards Grid - 2 columns on mobile for "windows" look */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-8">
-            <div onClick={() => navigate('/vendor/properties')} className="cursor-pointer">
+            <div onClick={() => navigate('/owner/properties')} className="cursor-pointer">
               <StatCard title="Total Listings" value={stats.properties} growth={0} icon={Building2} color={{ gradient: 'from-blue-600 to-indigo-600' }} isLoading={isLoading} />
             </div>
-            <div onClick={() => navigate('/vendor/bookings')} className="cursor-pointer">
+            <div onClick={() => navigate('/owner/bookings')} className="cursor-pointer">
               <StatCard title="Live Bookings" value={stats.bookings} growth={0} icon={CalendarCheck} color={{ gradient: 'from-emerald-500 to-teal-600' }} isLoading={isLoading} />
             </div>
-            <div onClick={() => navigate('/vendor/earnings')} className="cursor-pointer">
+            <div onClick={() => navigate('/owner/earnings')} className="cursor-pointer">
               <StatCard title="Total Value" value={stats.revenue} growth={0} icon={Wallet} color={{ gradient: 'from-orange-400 to-rose-500' }} isLoading={isLoading} />
             </div>
-            <div onClick={() => navigate('/vendor/bookings')} className="cursor-pointer">
+            <div onClick={() => navigate('/owner/bookings')} className="cursor-pointer">
               <StatCard title="Unresolved" value={stats.pending} growth={0} icon={Clock} color={{ gradient: 'from-indigo-500 to-purple-600' }} isLoading={isLoading} />
             </div>
           </div>

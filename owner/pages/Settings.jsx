@@ -1,13 +1,13 @@
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import { Settings as SettingsIcon } from 'lucide-react';
 
 export default function Settings() {
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         <div className="p-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
           <div className="p-6 bg-gray-100 rounded-full mb-4">
             <SettingsIcon className="w-12 h-12 text-gray-400" />

@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-hot-toast";
-import VendorSidebar from "../components/VendorSidebar";
-import VendorHeader from "../components/VendorHeader";
+import OwnerSidebar from "../components/OwnerSidebar";
+import OwnerHeader from "../components/OwnerHeader";
 import { authService, firestoreService } from "../../src/core/services/firebaseService";
 
 export default function Reviews() {
@@ -39,7 +39,7 @@ export default function Reviews() {
     }
 
     const unsubscribe = firestoreService.subscribeToReviews(
-      { vendorId: user.uid },
+      { ownerId: user.uid },
       (data) => {
         setReviews(data);
         setLoading(false);
@@ -123,9 +123,9 @@ export default function Reviews() {
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="p-4 md:p-10 space-y-10">
           {/* HEADER SECTION */}

@@ -424,9 +424,9 @@ async function seed() {
   for (const p of sellProperties) {
     p.category = "sell";
     p.listingType = "sell";
-    p.vendorId = "admin";
-    p.vendorRole = "admin";
-    p.vendorName = "Admin";
+    p.ownerId = "admin";
+    p.ownerRole = "admin";
+    p.ownerName = "Admin";
     p.status = "active";
     p.createdAt = serverTimestamp();
     p.updatedAt = serverTimestamp();
@@ -438,9 +438,9 @@ async function seed() {
   for (const p of rentProperties) {
     p.category = "rent";
     p.listingType = "rent";
-    p.vendorId = "admin";
-    p.vendorRole = "admin";
-    p.vendorName = "Admin";
+    p.ownerId = "admin";
+    p.ownerRole = "admin";
+    p.ownerName = "Admin";
     p.status = "active";
     p.createdAt = serverTimestamp();
     p.updatedAt = serverTimestamp();

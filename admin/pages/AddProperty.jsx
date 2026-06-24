@@ -42,14 +42,14 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import LocationSelector from '../../vendor/components/LocationSelector';
-import BulkImportModal from '../../vendor/components/BulkImportModal';
+import LocationSelector from '../../owner/components/LocationSelector';
+import BulkImportModal from '../../owner/components/BulkImportModal';
 import toast from 'react-hot-toast';
 import { firestoreService, cloudinaryService, authService, db } from '@core/services/firebaseService';
 import { notificationService } from '@core/services/notificationService';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useCategories } from '@core/contexts/CategoryContext';
-import NewCategoryModal from '../../vendor/components/NewCategoryModal';
+import NewCategoryModal from '../../owner/components/NewCategoryModal';
 
 
 export default function AddProperty() {
@@ -250,10 +250,10 @@ export default function AddProperty() {
         mainImage: mainImage,
         images: [mainImage, ...subImages].filter(img => img), // Backward compatibility + gallery
         subImages: subImages,
-        vendorId: user?.uid || 'admin',
-        vendorRole: 'admin',
-        vendorName: user?.displayName || formData.contactName,
-        vendorPhone: formData.contactPhone,
+        ownerId: user?.uid || 'admin',
+        ownerRole: 'admin',
+        ownerName: user?.displayName || formData.contactName,
+        ownerPhone: formData.contactPhone,
         status: 'active',
         category: formData.listingType, // sale/rent
         rating: 5.0,
@@ -287,7 +287,7 @@ export default function AddProperty() {
       toast.success('Property published successfully!');
       setLastCreatedProperty({ ...propertyData, id: propertyId });
       setShowSuccessModal(true);
-      // navigate('/vendor/dashboard'); // Removed immediate navigate to show success card
+      // navigate('/owner/dashboard'); // Removed immediate navigate to show success card
     } catch (error) {
       console.error('Error publishing property:', error);
       toast.error('Failed to publish property');
@@ -980,7 +980,7 @@ export default function AddProperty() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
-              onClick={() => navigate('/vendor/dashboard')}
+              onClick={() => navigate('/owner/dashboard')}
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -1024,7 +1024,7 @@ export default function AddProperty() {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
-                    onClick={() => navigate('/vendor/dashboard')}
+                    onClick={() => navigate('/owner/dashboard')}
                     className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm tracking-tight hover:bg-slate-800 transition-all shadow-lg"
                   >
                     Dashboard

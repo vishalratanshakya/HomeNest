@@ -16,8 +16,8 @@ import {
   Plus,
   Minus
 } from 'lucide-react';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import LocationSelector from '../components/LocationSelector';
 import toast from 'react-hot-toast';
 import { authService, firestoreService, cloudinaryService } from '../../src/core/services/firebaseService';
@@ -86,7 +86,7 @@ export default function Profile() {
       {},
       (data) => {
         const filtered = data.filter(
-          (p) => p.vendorId === currentUser.uid || p.vendorRole === 'admin' || p.vendorId === 'admin'
+          (p) => p.ownerId === currentUser.uid || p.ownerRole === 'admin' || p.ownerId === 'admin'
         );
         setPropertyCount(filtered.length);
       }
@@ -170,9 +170,9 @@ export default function Profile() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-slate-50/50 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="px-4 sm:px-6 lg:px-10 py-6">
           <div className="mb-10">
@@ -193,7 +193,7 @@ export default function Profile() {
                         <div className="w-10 h-10 border-4 border-indigo-600/30 border-t-indigo-600 rounded-full animate-spin" />
                       ) : (
                         <motion.img 
-                          src={photoURL ? cloudinaryService.optimizeUrl(photoURL, { width: 600, height: 600, crop: 'fill' }) : `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.displayName || 'Vendor'}`} 
+                          src={photoURL ? cloudinaryService.optimizeUrl(photoURL, { width: 600, height: 600, crop: 'fill' }) : `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.displayName || 'Owner'}`} 
                           alt="Profile" 
                           drag={scale > 1}
                           dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
@@ -250,9 +250,9 @@ export default function Profile() {
                   </button>
                   
                   <div className="text-center mt-6">
-                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">{currentUser?.displayName || 'Vendor'}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">{currentUser?.displayName || 'Owner'}</h2>
                     <p className="text-indigo-600 text-xs font-bold uppercase tracking-widest mt-1 flex items-center justify-center gap-1">
-                      <ShieldCheck className="w-4 h-4" /> Verified Vendor
+                      <ShieldCheck className="w-4 h-4" /> Verified Owner
                     </p>
                   </div>
 

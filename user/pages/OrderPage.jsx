@@ -151,7 +151,7 @@ export default function UserOrderPage() {
 
         const orderData = {
           userId: user?.uid || user?.id || 'anonymous',
-          vendorId: product.vendorId || 'unknown_vendor',
+          ownerId: product.ownerId || 'unknown_owner',
           customerDetails: formData,
           propertyInfo: {
             id: product.id || 'unknown_id',

@@ -98,18 +98,18 @@ export default function BulkImportModal({ isOpen, onClose, onSuccess, defaultLis
           ? data.status 
           : (data.constructionStatus || 'Ready to Move');
 
-        const vendorId = currentUser?.uid || 'json_upload';
-        const vendorRole = currentUser?.role || 'vendor';
-        const vendorName = currentUser?.displayName || currentUser?.name || 'Vendor';
-        const vendorPhone = currentUser?.phoneNumber || currentUser?.phone || data.contact?.phone || data.contactPhone || '+91 00000 00000';
+        const ownerId = currentUser?.uid || 'json_upload';
+        const ownerRole = currentUser?.role || 'owner';
+        const ownerName = currentUser?.displayName || currentUser?.name || 'Owner';
+        const ownerPhone = currentUser?.phoneNumber || currentUser?.phone || data.contact?.phone || data.contactPhone || '+91 00000 00000';
 
         await addDoc(collection(db, "properties"), {
           ...data,
           slug,
-          vendorId,
-          vendorRole,
-          vendorName,
-          vendorPhone,
+          ownerId,
+          ownerRole,
+          ownerName,
+          ownerPhone,
           status: 'active',
           constructionStatus,
           createdAt: serverTimestamp(),

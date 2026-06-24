@@ -68,9 +68,9 @@ async function seed() {
             images: [mainImage],
             location: { city: "Mumbai", locality: "Downtown" },
             amenities: ["Security", "Parking", "Gym"],
-            vendorId: auth.currentUser.uid,
-            vendorRole: "admin",
-            vendorName: "Admin",
+            ownerId: auth.currentUser.uid,
+            ownerRole: "admin",
+            ownerName: "Admin",
             status: "active",
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()

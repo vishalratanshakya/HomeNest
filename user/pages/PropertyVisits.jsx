@@ -65,7 +65,7 @@ const PropertyVisits = () => {
 
     setCancellingId(visitId);
     try {
-      // Update status in Firestore — do NOT delete so vendor/admin can see it was cancelled
+      // Update status in Firestore — do NOT delete so owner/admin can see it was cancelled
       await bookingService.updateBookingStatus(visitId, 'cancelled');
 
       // Remove from local UI immediately (real-time listener will confirm)

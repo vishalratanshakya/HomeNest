@@ -23,8 +23,8 @@ import {
   Plus
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import VendorSidebar from '../components/VendorSidebar';
-import VendorHeader from '../components/VendorHeader';
+import OwnerSidebar from '../components/OwnerSidebar';
+import OwnerHeader from '../components/OwnerHeader';
 import toast from 'react-hot-toast';
 import { bookingService, authService } from '../../src/core/services/firebaseService';
 import { formatRelativeTime } from '../../src/core/utils/helpers';
@@ -42,7 +42,7 @@ export default function Bookings() {
     if (!user) return;
 
     setLoading(true);
-    const unsubscribe = bookingService.getVendorBookings(
+    const unsubscribe = bookingService.getOwnerBookings(
       user.uid,
       (data) => {
         const formattedData = data.map(b => ({
@@ -144,9 +144,9 @@ export default function Bookings() {
 
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans" onClick={() => setOpenMenuId(null)}>
-      <VendorSidebar />
+      <OwnerSidebar />
       <main className="flex-1 lg:ml-72 ml-0 min-h-screen bg-slate-50/50 transition-all duration-300">
-        <VendorHeader />
+        <OwnerHeader />
         
         <div className="px-4 sm:px-10 py-6 sm:py-10">
           {/* Header */}

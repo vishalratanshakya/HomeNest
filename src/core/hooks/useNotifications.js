@@ -30,7 +30,7 @@ export const useNotifications = (userId, userRole = null) => {
     }
 
     // 1. Subscribe to Firestore notifications (Real-time in-app)
-    // Pass userRole to allow for role-based broadcasts (e.g., 'vendor', 'user')
+    // Pass userRole to allow for role-based broadcasts (e.g., 'owner', 'user')
     const unsubscribe = notificationService.subscribeToNotifications(userId, (data) => {
       setNotifications(data);
       const unread = data.filter(n => !n.read).length;

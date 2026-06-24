@@ -327,9 +327,9 @@ export default function RentPage() {
                           </div>
                         </div>
 
-                        {item.vendorName && (
+                        {item.ownerName && (
                           <div className="text-[10px] font-extrabold text-emerald-600 mb-1.5 uppercase tracking-widest">
-                            By {item.vendorName}
+                            By {item.ownerName}
                           </div>
                         )}
 

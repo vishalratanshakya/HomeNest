@@ -54,9 +54,9 @@ async function uploadData() {
       const propertyToUpload = {
         ...data,
         slug,
-        vendorId: 'admin_bulk_upload',
-        vendorName: 'Premium Real Estate',
-        vendorPhone: '+91 99999 99999',
+        ownerId: 'admin_bulk_upload',
+        ownerName: 'Premium Real Estate',
+        ownerPhone: '+91 99999 99999',
         status: data.status || 'active',
         category: data.listingType,
         createdAt: new Date(),

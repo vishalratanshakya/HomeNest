@@ -38,7 +38,7 @@ export default function RecentBookingsTable({ bookings, isLoading }) {
       <div className="p-6 border-b border-gray-100 flex justify-between items-center">
         <h3 className="section-title mb-0">Recent Bookings</h3>
         <button 
-          onClick={() => navigate('/vendor/bookings')}
+          onClick={() => navigate('/owner/bookings')}
           className="text-indigo-600 text-xs font-bold hover:underline transition-all"
         >
           View All

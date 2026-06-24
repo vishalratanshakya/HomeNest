@@ -448,9 +448,9 @@ export default function UserSearch() {
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
                           <h4 className="font-semibold text-gray-900 line-clamp-1">{product.title || product.name}</h4>
-                          {product.vendorName && (
+                          {product.ownerName && (
                             <div className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest mt-0.5">
-                              By {product.vendorName}
+                              By {product.ownerName}
                             </div>
                           )}
                           {product.shortDescription && (

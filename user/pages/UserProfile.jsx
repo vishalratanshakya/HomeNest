@@ -79,7 +79,7 @@ const UserProfile = () => {
             email: userDoc?.email || currentUser.email,
             phoneNumber: userDoc?.phone || userDoc?.phoneNumber || currentUser.phoneNumber || '',
             location: userDoc?.location || '',
-            accountType: userDoc?.role === 'vendor' ? 'Property Vendor' : userDoc?.accountType || 'Property Buyer',
+            accountType: userDoc?.role === 'owner' ? 'Property Owner' : userDoc?.accountType || 'Property Buyer',
             memberSince: userDoc?.memberSince || (
               currentUser.metadata?.creationTime
                 ? new Date(currentUser.metadata.creationTime).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })

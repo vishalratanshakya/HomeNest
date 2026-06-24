@@ -8,10 +8,10 @@ import CalendarPicker from './CalendarPicker';
 import { useNotifications } from '../../src/core/hooks/useNotifications';
 import { formatDistanceToNow } from 'date-fns';
 
-export default function VendorHeader() {
+export default function OwnerHeader() {
   const location = useLocation();
   const path = location.pathname;
-  const isDashboard = path === '/vendor/dashboard';
+  const isDashboard = path === '/owner/dashboard';
   
   // Dynamic titles for other pages
   const getPageTitle = () => {
@@ -24,7 +24,7 @@ export default function VendorHeader() {
     if (path.includes('profile')) return 'Account Profile';
     if (path.includes('settings')) return 'System Settings';
     if (path.includes('add-property')) return 'Add New Property';
-    return 'Vendor Panel';
+    return 'Owner Panel';
   };
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -39,7 +39,7 @@ export default function VendorHeader() {
     return authService.getCurrentUser() || JSON.parse(sessionStorage.getItem('currentUser'));
   }, []);
 
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(currentUser?.uid, 'vendor');
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(currentUser?.uid, 'owner');
 
   useEffect(() => {
     if (currentUser) {
@@ -52,7 +52,7 @@ export default function VendorHeader() {
         const updatedUser = {
           ...sessionUser,
           ...e.detail,
-          role: e.detail.role || sessionUser.role || 'vendor'
+          role: e.detail.role || sessionUser.role || 'owner'
         };
         setUser(updatedUser);
         sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
@@ -92,7 +92,7 @@ export default function VendorHeader() {
     <header className={`${isDashboard ? 'h-24' : 'h-20'} bg-white/80 backdrop-blur-md px-2 md:px-4 lg:px-10 flex items-center justify-between sticky top-0 z-40 border-b border-slate-100 transition-all duration-300`}>
       <div className="flex items-center gap-3 lg:gap-4">
         <button 
-          onClick={() => window.dispatchEvent(new CustomEvent('toggle-vendor-sidebar'))}
+          onClick={() => window.dispatchEvent(new CustomEvent('toggle-owner-sidebar'))}
           className="lg:hidden p-2.5 sm:p-3 bg-white border border-slate-200 rounded-2xl transition-all shadow-sm active:scale-95 group hover:border-indigo-500"
         >
           <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600 group-hover:text-indigo-600 transition-colors" />
@@ -114,7 +114,7 @@ export default function VendorHeader() {
                 {getPageTitle()}
               </h1>
               <p className="text-slate-400 text-[7px] lg:text-[9px] font-black uppercase tracking-[0.2em] mt-0.5 lg:mt-1 truncate">
-                Vendor Portal / {getPageTitle()}
+                Owner Portal / {getPageTitle()}
               </p>
             </>
           )}

@@ -4,7 +4,7 @@ import { authService, firestoreService } from '@core/services/firebaseService';
 import toast from 'react-hot-toast';
 import { Search, Filter, Plus, Edit, Trash2, Eye, MoreVertical } from 'lucide-react';
 
-export default function VendorProductList() {
+export default function OwnerProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,12 +12,12 @@ export default function VendorProductList() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   const currentUser = authService.getCurrentUser() || JSON.parse(sessionStorage.getItem('currentUser'));
-  const vendorId = currentUser?.uid || 'anonymous';
+  const ownerId = currentUser?.uid || 'anonymous';
 
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const data = await firestoreService.getProducts({ vendorId });
+      const data = await firestoreService.getProducts({ ownerId });
       setProducts(data);
     } catch (error) {
       toast.error('Failed to fetch products');
@@ -29,7 +29,7 @@ export default function VendorProductList() {
 
   useState(() => {
     fetchProducts();
-  }, [vendorId]);
+  }, [ownerId]);
 
   const categories = [
     { id: 'all', name: 'All Categories' },
@@ -86,7 +86,7 @@ export default function VendorProductList() {
           <div className="flex justify-between items-center h-16">
             <h1 className="text-2xl font-bold text-gray-900">My Products</h1>
             <Link
-              to="/vendor/add-product"
+              to="/owner/add-product"
               className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all"
             >
               <Plus className="w-4 h-4" />
@@ -172,7 +172,7 @@ export default function VendorProductList() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Link
-                    to={`/vendor/edit-product/${product.id}`}
+                    to={`/owner/edit-product/${product.id}`}
                     className="flex-1 flex items-center justify-center space-x-1 px-3 py-2 bg-primary-100 text-primary-700 rounded-lg hover:bg-primary-200 transition-all"
                   >
                     <Edit className="w-4 h-4" />

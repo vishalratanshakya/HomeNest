@@ -92,7 +92,7 @@ export default function ConfirmBooking() {
         contactNumber: contactNumber,
         specialRequests: specialRequests,
         status: 'pending',
-        vendorId: product.vendorId || 'system_admin',
+        ownerId: product.ownerId || 'system_admin',
         type: 'booking'
       };
 

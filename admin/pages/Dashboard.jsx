@@ -27,7 +27,7 @@ import {
   BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, ComposedChart
 } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
-import CalendarPicker from '../../vendor/components/CalendarPicker';
+import CalendarPicker from '../../owner/components/CalendarPicker';
 const REVENUE_DATA_HUB = {
   "2025": [
     { name: 'Jan', revenue: 65000, uploads: 12, growth: '+12%' },
@@ -129,14 +129,14 @@ const AdminDashboard = () => {
 
   const stats = useMemo(() => {
     const totalRev = bookings.filter(b => b.bookingStatus === 'confirmed').reduce((s, b) => s + (Number(b.propertyPrice) || 0), 0);
-    const vendors = users.filter(u => u.role === 'vendor' || u.role === 'agent').length;
+    const owners = users.filter(u => u.role === 'owner' || u.role === 'agent').length;
     const activeUsers = users.filter(u => u.role === 'user').length;
     const sellProps = properties.filter(p => p.type === 'sell').length;
     const rentProps = properties.filter(p => p.type === 'rent').length;
     
     return [
       { title: 'Total Revenue', value: `₹${totalRev.toLocaleString()}`, trend: '+12.5%', icon: DollarSign, color: 'text-white', bg: 'bg-emerald-500', shadow: 'shadow-emerald-200', path: '/admin/payments' },
-      { title: 'Total Vendors', value: vendors, trend: '+8.2%', icon: Users, color: 'text-white', bg: 'bg-indigo-500', shadow: 'shadow-indigo-200', path: '/admin/vendors' },
+      { title: 'Total Owners', value: owners, trend: '+8.2%', icon: Users, color: 'text-white', bg: 'bg-indigo-500', shadow: 'shadow-indigo-200', path: '/admin/owners' },
       { title: 'Total Users', value: activeUsers, trend: '+15.3%', icon: Users, color: 'text-white', bg: 'bg-blue-500', shadow: 'shadow-blue-200', path: '/admin/users' },
       { title: 'Total Properties', value: properties.length, trend: '+5.7%', icon: Home, color: 'text-white', bg: 'bg-orange-500', shadow: 'shadow-orange-200', path: '/admin/properties' },
       { title: 'Sell Properties', value: sellProps, trend: '+4.2%', icon: Tag, color: 'text-white', bg: 'bg-rose-500', shadow: 'shadow-rose-200', path: '/admin/sell-properties' },
@@ -592,8 +592,8 @@ const AdminDashboard = () => {
           <div className="mt-8 pt-8 border-t border-gray-50 flex items-center justify-between">
              <div className="flex items-center gap-4">
                 <div className="flex flex-col">
-                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Active Vendors</span>
-                   <span className="text-lg font-black text-gray-900">{users.filter(u => u.role === 'vendor').length || 24}</span>
+                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Active Owners</span>
+                   <span className="text-lg font-black text-gray-900">{users.filter(u => u.role === 'owner').length || 24}</span>
                 </div>
                 <div className="h-8 w-px bg-gray-100" />
                 <div className="flex flex-col">
@@ -683,7 +683,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex-1 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 opacity-60">
                   <p className="text-xs font-black uppercase tracking-widest mb-1">Meeting</p>
-                  <p className="text-sm font-bold">New Vendor Onboarding</p>
+                  <p className="text-sm font-bold">New Owner Onboarding</p>
                   <div className="flex items-center gap-2 mt-2">
                     <Clock className="w-3 h-3" />
                     <span className="text-[10px] font-bold">02:00 PM</span>

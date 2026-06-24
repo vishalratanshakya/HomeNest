@@ -36,7 +36,7 @@ const AdminAnalytics = () => {
   const [showRangeModal, setShowRangeModal] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [visibleLines, setVisibleLines] = useState({ revenue: true, users: true });
-  const [visibleBars, setVisibleBars] = useState({ vendors: true, users: true });
+  const [visibleBars, setVisibleBars] = useState({ owners: true, users: true });
 
   useEffect(() => {
     const unsubUsers = firestoreService.subscribeToUsers(setUsers);
@@ -91,13 +91,13 @@ const AdminAnalytics = () => {
   ];
 
   const userGrowth = [
-    { day: 'Mon', vendors: 12, users: 45 },
-    { day: 'Tue', vendors: 15, users: 52 },
-    { day: 'Wed', vendors: 10, users: 38 },
-    { day: 'Thu', vendors: 22, users: 65 },
-    { day: 'Fri', vendors: 18, users: 48 },
-    { day: 'Sat', vendors: 25, users: 70 },
-    { day: 'Sun', vendors: 20, users: 55 },
+    { day: 'Mon', owners: 12, users: 45 },
+    { day: 'Tue', owners: 15, users: 52 },
+    { day: 'Wed', owners: 10, users: 38 },
+    { day: 'Thu', owners: 22, users: 65 },
+    { day: 'Fri', owners: 18, users: 48 },
+    { day: 'Sat', owners: 25, users: 70 },
+    { day: 'Sun', owners: 20, users: 55 },
   ];
 
   const handleExport = () => {
@@ -231,11 +231,11 @@ const AdminAnalytics = () => {
             <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight">Weekly Registration Trends</h3>
             <div className="flex items-center gap-4">
                <button 
-                 onClick={() => setVisibleBars(prev => ({ ...prev, vendors: !prev.vendors }))}
-                 className={`flex items-center gap-2 transition-opacity ${!visibleBars.vendors ? 'opacity-30' : 'opacity-100'}`}
+                 onClick={() => setVisibleBars(prev => ({ ...prev, owners: !prev.owners }))}
+                 className={`flex items-center gap-2 transition-opacity ${!visibleBars.owners ? 'opacity-30' : 'opacity-100'}`}
                >
                  <div className="w-3 h-3 rounded-full bg-indigo-500" />
-                 <span className="text-[10px] font-black text-gray-400 uppercase">Vendors</span>
+                 <span className="text-[10px] font-black text-gray-400 uppercase">Owners</span>
                </button>
                <button 
                  onClick={() => setVisibleBars(prev => ({ ...prev, users: !prev.users }))}
@@ -253,8 +253,8 @@ const AdminAnalytics = () => {
                 <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fill: '#94A3B8', fontSize: 11, fontWeight: 700}} dy={10} />
                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#94A3B8', fontSize: 11, fontWeight: 700}} />
                 <Tooltip cursor={{fill: '#F8FAFC'}} contentStyle={{ borderRadius: '20px', border: 'none' }} />
-                {visibleBars.vendors && (
-                  <Bar dataKey="vendors" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={20} />
+                {visibleBars.owners && (
+                  <Bar dataKey="owners" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={20} />
                 )}
                 {visibleBars.users && (
                   <Bar dataKey="users" fill="#10B981" radius={[6, 6, 0, 0]} barSize={20} />

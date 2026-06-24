@@ -113,7 +113,7 @@ const AdminUsers = () => {
             >
               <option value="all">All Roles</option>
               <option value="user">Users</option>
-              <option value="vendor">Vendors</option>
+              <option value="owner">Owners</option>
               <option value="agent">Agents</option>
               <option value="admin">Admins</option>
             </select>
@@ -176,7 +176,7 @@ const AdminUsers = () => {
                           <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">UID: {user.id.slice(0, 8)}</p>
                           <span className={`text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
                             user.role === 'admin' ? 'bg-purple-100 text-purple-700' :
-                            user.role === 'vendor' || user.role === 'agent' ? 'bg-blue-100 text-blue-700' :
+                            user.role === 'owner' || user.role === 'agent' ? 'bg-blue-100 text-blue-700' :
                             'bg-gray-100 text-gray-500'
                           }`}>{user.role || 'user'}</span>
                         </div>

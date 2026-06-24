@@ -22,7 +22,7 @@ import { useSearch } from '@core/contexts/SearchContext';
 const AdminReports = () => {
   const [reports, setReports] = useState([
     { id: '1', type: 'Property Misleading', reporter: 'Alex Johnson', target: 'Skyline Penthouse', reason: 'Images do not match actual property state.', status: 'pending', priority: 'high', date: 'May 11, 2026' },
-    { id: '2', type: 'Vendor Behavior', reporter: 'Sarah Lee', target: 'Prime Estates Agency', reason: 'Unprofessional communication during site visit.', status: 'resolved', priority: 'medium', date: 'May 10, 2026' },
+    { id: '2', type: 'Owner Behavior', reporter: 'Sarah Lee', target: 'Prime Estates Agency', reason: 'Unprofessional communication during site visit.', status: 'resolved', priority: 'medium', date: 'May 10, 2026' },
     { id: '3', type: 'Spam', reporter: 'System Bot', target: 'User Account #492', reason: 'Multiple repetitive comments in 1 minute.', status: 'pending', priority: 'low', date: 'May 11, 2026' },
   ]);
 

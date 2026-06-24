@@ -71,7 +71,7 @@ const AdminProperties = ({ type = 'all' }) => {
     const matchesSearch = 
       p.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       locationStr.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.vendorName?.toLowerCase().includes(searchTerm.toLowerCase());
+      p.ownerName?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || p.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -139,7 +139,7 @@ const AdminProperties = ({ type = 'all' }) => {
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-500 transition-colors" />
           <input
             type="text"
-            placeholder="Search by title, location or vendor..."
+            placeholder="Search by title, location or owner..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-gray-50 border-none rounded-2xl pl-14 pr-6 py-4 text-sm font-medium focus:ring-2 focus:ring-indigo-500/20 transition-all"
@@ -211,11 +211,11 @@ const AdminProperties = ({ type = 'all' }) => {
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100/50 mb-6">
                    <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-xs font-black text-indigo-600 shadow-sm uppercase">
-                         {property.vendorName?.charAt(0) || 'V'}
+                         {property.ownerName?.charAt(0) || 'V'}
                       </div>
                       <div>
-                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Vendor</p>
-                         <p className="text-xs font-bold text-gray-900">{property.vendorName || 'Unknown'}</p>
+                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Owner</p>
+                         <p className="text-xs font-bold text-gray-900">{property.ownerName || 'Unknown'}</p>
                       </div>
                    </div>
                    <div className="text-right">
@@ -243,7 +243,7 @@ const AdminProperties = ({ type = 'all' }) => {
                    )}
                    <div className="flex gap-2">
                       <button 
-                        onClick={() => navigate(`/vendor/edit-property/${property.id}`)}
+                        onClick={() => navigate(`/owner/edit-property/${property.id}`)}
                         className="p-3 bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
                       >
                         <Edit className="w-4 h-4" />

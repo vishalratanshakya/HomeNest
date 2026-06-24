@@ -127,7 +127,7 @@ export default function PurchaseProperty() {
         clientAddress: clientAddress,
         contactNumber: contactNumber,
         status: 'pending',
-        vendorId: product.vendorId || 'system_admin',
+        ownerId: product.ownerId || 'system_admin',
         type: isRental ? 'rental' : 'purchase',
         paymentMethod: 'finance',
         downPayment: isRental ? 0 : downPayment,
