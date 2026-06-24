@@ -173,7 +173,7 @@ export default function UserNavbar() {
               { label: 'Sale', path: '/user/sale' },
               { label: 'Rent', path: '/user/rent' },
               { label: 'Contact', path: '/user/contact' },
-              { label: 'Vendor', path: '/vendor/login' }
+              { label: 'Register as Owner', path: '/vendor/login' }
             ].map((link) => {
               const isActive = location.pathname === link.path || (link.path !== '/user/home' && location.pathname.startsWith(link.path));
               return (
@@ -181,13 +181,13 @@ export default function UserNavbar() {
                   key={link.label}
                   to={link.path} 
                   className={`relative text-base font-bold transition-all duration-300 ${
-                    link.label === 'Vendor' 
+                    link.label === 'Register as Owner' 
                       ? 'bg-slate-900 text-white px-5 py-2 rounded-xl hover:bg-primary-600 shadow-lg shadow-slate-200 active:scale-95' 
                       : (isActive ? 'text-primary-600 py-2' : 'text-slate-800 hover:text-primary-600 py-2')
                   }`}
                 >
                   {link.label}
-                  {isActive && link.label !== 'Vendor' && (
+                  {isActive && link.label !== 'Register as Owner' && (
                     <motion.div 
                       layoutId="activeNav"
                       className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-600 rounded-full"
@@ -315,7 +315,7 @@ export default function UserNavbar() {
                 to="/vendor/login" 
                 className="md:hidden px-2.5 py-1.5 bg-slate-900 text-white text-[9px] font-black rounded-lg"
               >
-                Vendor
+                Register as Owner
               </Link>
               
               {authLoading ? (
@@ -389,7 +389,13 @@ export default function UserNavbar() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Link 
+                    to="/auth/signup" 
+                    className="hidden sm:flex items-center justify-center sm:px-6 sm:py-3.5 bg-white text-primary-600 border-2 border-primary-100 hover:border-primary-600 hover:bg-primary-50 rounded-2xl transition-all"
+                  >
+                    <span className="text-xs font-black uppercase tracking-widest">Sign Up</span>
+                  </Link>
                   <Link 
                     to="/auth/login" 
                     className="flex items-center justify-center w-7 h-7 sm:w-auto sm:h-auto sm:px-8 sm:py-3.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-lg sm:rounded-2xl shadow-md sm:shadow-xl shadow-primary-200 hover:shadow-primary-300 transition-all"
